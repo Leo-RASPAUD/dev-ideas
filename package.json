@@ -1,0 +1,38 @@
+{
+    "name": "dev-ideas",
+    "version": "1.0.0",
+    "description": "Dev ideas",
+    "main": "index.js",
+    "scripts": {
+        "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Leo-RASPAUD/dev-ideas.git"
+    },
+    "author": "Leo RASPAUD",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Leo-RASPAUD/dev-ideas/issues"
+    },
+    "homepage": "https://github.com/Leo-RASPAUD/dev-ideas#readme",
+    "devDependencies": {
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.5",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-stage-2": "^6.24.1",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb": "17.0.0",
+        "eslint-plugin-import": "^2.12.0",
+        "eslint-plugin-jsx-a11y": "^6.0.3",
+        "eslint-plugin-react": "^7.9.1",
+        "webpack": "^4.16.1",
+        "webpack-cli": "^3.1.0",
+        "webpack-dev-server": "^3.1.4"
+    },
+    "dependencies": {
+        "babel-preset-react": "^6.24.1",
+        "react": "^16.4.1",
+        "react-dom": "^16.4.1"
+    }
+}
