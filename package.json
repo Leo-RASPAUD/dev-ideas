@@ -17,10 +17,12 @@
     },
     "homepage": "https://github.com/Leo-RASPAUD/dev-ideas#readme",
     "devDependencies": {
-        "babel-core": "^6.26.3",
-        "babel-loader": "^7.1.5",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-stage-2": "^6.24.1",
+        "@babel/core": "^7.0.0-beta.54",
+        "@babel/plugin-proposal-decorators": "^7.0.0-beta.54",
+        "@babel/preset-env": "^7.0.0-beta.54",
+        "@babel/preset-react": "^7.0.0-beta.54",
+        "@babel/preset-stage-0": "^7.0.0-beta.54",
+        "babel-loader": "^8.0.0-beta",
         "eslint": "^4.19.1",
         "eslint-config-airbnb": "17.0.0",
         "eslint-plugin-import": "^2.12.0",
@@ -31,8 +33,15 @@
         "webpack-dev-server": "^3.1.4"
     },
     "dependencies": {
+        "@material-ui/core": "^1.4.0",
+        "@material-ui/icons": "^1.1.0",
         "babel-preset-react": "^6.24.1",
         "react": "^16.4.1",
-        "react-dom": "^16.4.1"
+        "react-dom": "^16.4.1",
+        "react-redux": "^5.0.7",
+        "react-router-dom": "^4.3.1",
+        "react-router-redux": "^5.0.0-alpha.9",
+        "redux": "^4.0.0",
+        "redux-thunk": "^2.3.0"
     }
 }

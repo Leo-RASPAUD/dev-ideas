@@ -15,11 +15,13 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js'],
         alias: {
-            // utils: path.resolve(__dirname, '../public/src/main/utils'), TODO
+            components: path.resolve(__dirname, './src/components'),
+            reducers: path.resolve(__dirname, './src/reducers'),
         },
     },
     devServer: {
         contentBase: './src',
+        historyApiFallback: true,
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
