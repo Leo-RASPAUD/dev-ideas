@@ -3,14 +3,11 @@ import ReactDOM from 'react-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-import { Route } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
-import red from '@material-ui/core/colors/red';
 import mainReducer from 'reducers/main.reducer';
-import App from 'components/App/App.component';
+import App from 'components/App/App.container';
 
 const history = createHistory();
 
