@@ -17,20 +17,9 @@ export default theme => ({
     root: {
         ...cssConstants.display.flex,
         ...cssConstants.justifyContent.center,
-        transition: 'all 0.15s ease-in-out',
-        '&:hover': {
-            transform: 'scale(1.05)',
-        },
     },
     errorMessage: {
         margin: theme.spacing.unit,
-    },
-    rootWrapper: {
-        ...cssConstants.display.flex,
-        ...cssConstants.justifyContent.center,
-    },
-    smallerForScale: {
-        width: '90%',
     },
     error: {
         border: '1px solid #F44336',
