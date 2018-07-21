@@ -4,7 +4,9 @@
     "description": "Dev ideas",
     "main": "index.js",
     "scripts": {
-        "watch": "./node_modules/.bin/webpack-dev-server --config webpack.config.js"
+        "watch": "./node_modules/.bin/webpack-dev-server --config webpack.config.js",
+        "build": "./node_modules/.bin/webpack --config webpack.config.prod.js",
+        "deploy": "aws s3 sync dist/ s3://dev-ideas"
     },
     "repository": {
         "type": "git",
@@ -30,23 +32,30 @@
         "eslint-plugin-import": "^2.12.0",
         "eslint-plugin-jsx-a11y": "^6.0.3",
         "eslint-plugin-react": "^7.9.1",
+        "html-webpack-plugin": "^3.2.0",
         "webpack": "^4.16.1",
         "webpack-cli": "^3.1.0",
         "webpack-dev-server": "^3.1.4"
     },
     "dependencies": {
+        "@babel/polyfill": "^7.0.0-beta.54",
         "@material-ui/core": "^1.4.0",
         "@material-ui/icons": "^1.1.0",
-        "amazon-cognito-identity-js": "^2.0.16",
+        "aws-cli": "^0.0.2",
+        "aws-sdk": "^2.279.1",
+        "axios": "^0.18.0",
         "babel-preset-react": "^6.24.1",
+        "css-loader": "^1.0.0",
         "history": "^4.7.2",
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
         "react-dom": "^16.4.1",
         "react-redux": "^5.0.7",
+        "react-redux-loading-bar": "^4.0.5",
         "react-router-dom": "^4.3.1",
         "react-router-redux": "^5.0.0-alpha.9",
         "redux": "^4.0.0",
-        "redux-thunk": "^2.3.0"
+        "redux-thunk": "^2.3.0",
+        "style-loader": "^0.21.0"
     }
 }

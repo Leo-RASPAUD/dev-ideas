@@ -1,99 +1,84 @@
 import { push } from 'react-router-redux';
-import {
-    CognitoUserPool,
-    CognitoUserAttribute,
-    CognitoUser,
-    AuthenticationDetails,
-} from 'amazon-cognito-identity-js';
-import cognitoConfig from 'utils/cognito.config';
-
-const { cognitoPoolData } = cognitoConfig;
+import httpUtils from 'utils/http.utils';
+import lamdbaUtils from 'utils/lamdba.utils';
 
 const states = {
+    LOGIN_REGISTER_LOADING: 'LOGIN_REGISTER_LOADING',
     LOGIN_REGISTER_SUCCESS: 'LOGIN_REGISTER_SUCCESS',
     LOGIN_REGISTER_FAILURE: 'LOGIN_REGISTER_FAILURE',
+    LOGIN_CONFIRMATION_LOADING: 'LOGIN_CONFIRMATION_LOADING',
     LOGIN_CONFIRMATION_SUCCESS: 'LOGIN_CONFIRMATION_SUCCESS',
     LOGIN_CONFIRMATION_FAILURE: 'LOGIN_CONFIRMATION_FAILURE',
+    LOGIN_LOADING: 'LOGIN_LOADING',
     LOGIN_FAILURE: 'LOGIN_FAILURE',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+    CANCEL_REGISTER: 'CANCEL_REGISTER',
 };
 
-const dispatchRegisterSuccess = ({ email }) => ({ type: states.LOGIN_REGISTER_SUCCESS, email });
-const dispatchRegisterFailure = ({ error }) => ({ type: states.LOGIN_REGISTER_FAILURE, error });
-const dispatchConfirmSuccess = () => ({ type: states.LOGIN_CONFIRMATION_SUCCESS });
-const dispatchConfirmFailure = ({ error }) => ({ type: states.LOGIN_CONFIRMATION_FAILURE, error });
-const dispatchLoginSuccess = ({ email }) => ({ type: states.LOGIN_SUCCESS, email });
-const dispatchLoginFailure = ({ error }) => ({ type: states.LOGIN_FAILURE, error });
-const goToHome = () => push('/home');
+const registerLoading = () => ({ type: states.LOGIN_REGISTER_LOADING });
+const registerSuccessAction = ({ email }) => ({ type: states.LOGIN_REGISTER_SUCCESS, email });
+const registerFailureAction = ({ error }) => ({ type: states.LOGIN_REGISTER_FAILURE, error });
 
-const registerUser = user => dispatch => {
-    const { email, password } = user;
-    const userPool = new CognitoUserPool(cognitoPoolData);
+const confirmLoading = () => ({ type: states.LOGIN_CONFIRMATION_LOADING });
+const confirmSuccessAction = () => ({ type: states.LOGIN_CONFIRMATION_SUCCESS });
+const confirmFailureAction = ({ error }) => ({ type: states.LOGIN_CONFIRMATION_FAILURE, error });
 
-    const attributeList = [];
+const loginLoading = () => ({ type: states.LOGIN_LOADING });
+const loginSuccessAction = ({ email }) => ({ type: states.LOGIN_SUCCESS, email });
+const loginFailureAction = ({ error }) => ({ type: states.LOGIN_FAILURE, error });
 
-    const dataEmail = {
-        Name: 'email',
-        Value: email,
-    };
+const goToHomeAction = () => push('/home');
+const cancelRegisterAction = () => ({ type: states.CANCEL_REGISTER });
 
-    const attributeEmail = new CognitoUserAttribute(dataEmail);
-
-    attributeList.push(attributeEmail);
-
-    userPool.signUp(email, password, attributeList, null, err => {
-        if (err) {
-            dispatch(dispatchRegisterFailure({ error: err.message }));
-            return;
-        }
-        dispatch(dispatchRegisterSuccess({ email }));
-    });
+const registerUser = ({ email, password }) => async dispatch => {
+    dispatch(registerLoading());
+    try {
+        await httpUtils.post({
+            url: lamdbaUtils.register,
+            params: { email, password },
+        });
+        dispatch(registerSuccessAction({ email }));
+    } catch (error) {
+        dispatch(registerFailureAction({ error: error.response.data.message }));
+    }
 };
 
-const confirmUser = ({ confirmationCode, email }) => dispatch => {
-    const userPool = new CognitoUserPool(cognitoPoolData);
-    const userData = {
-        Username: email,
-        Pool: userPool,
-    };
-
-    const cognitoUser = new CognitoUser(userData);
-    cognitoUser.confirmRegistration(confirmationCode, true, err => {
-        if (err) {
-            dispatch(dispatchConfirmFailure({ error: err.message }));
-            return;
-        }
-        dispatch(dispatchConfirmSuccess());
-        dispatch(goToHome());
-    });
+const validateCode = ({ confirmationCode, email }) => async dispatch => {
+    dispatch(confirmLoading());
+    try {
+        await httpUtils.post({
+            url: lamdbaUtils.validateCode,
+            params: { confirmationCode, email },
+        });
+        dispatch(confirmSuccessAction());
+        dispatch(goToHomeAction());
+    } catch (error) {
+        dispatch(confirmFailureAction({ error: error.message }));
+    }
 };
 
-const login = ({ email, password }) => dispatch => {
-    const authenticationData = {
-        Username: email,
-        Password: password,
-    };
-    const authenticationDetails = new AuthenticationDetails(authenticationData);
-    const userPool = new CognitoUserPool(cognitoPoolData);
-    const userData = {
-        Username: email,
-        Pool: userPool,
-    };
-    const cognitoUser = new CognitoUser(userData);
-    cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess() {
-            dispatch(dispatchLoginSuccess({ email }));
-            dispatch(goToHome());
-        },
-        onFailure(error) {
-            dispatch(dispatchLoginFailure({ email, error: error.message }));
-        },
-    });
+const login = ({ email, password }) => async dispatch => {
+    dispatch(loginLoading());
+    try {
+        await httpUtils.post({
+            url: lamdbaUtils.login,
+            params: { email, password },
+        });
+        dispatch(loginSuccessAction({ email }));
+        dispatch(goToHomeAction());
+    } catch (error) {
+        dispatch(loginFailureAction({ email, error: error.message }));
+    }
+};
+
+const cancelRegister = () => dispatch => {
+    dispatch(cancelRegisterAction());
 };
 
 export default {
     registerUser,
-    confirmUser,
+    validateCode,
+    cancelRegister,
     login,
     states,
 };

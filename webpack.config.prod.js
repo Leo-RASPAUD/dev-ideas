@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 require('@babel/polyfill');
@@ -16,7 +15,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
 
 module.exports = {
     entry: ['@babel/polyfill', './src/index.js'],
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [
             {
@@ -40,23 +39,9 @@ module.exports = {
             assets: path.resolve(__dirname, './src/assets'),
         },
     },
-    devServer: {
-        contentBase: './src',
-        historyApiFallback: true,
-        port: 9000,
-    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: '[name].js',
     },
-    plugins: [
-        new webpack.EnvironmentPlugin([
-            'COGNITO_USER_POOL_ID',
-            'COGNITO_CLIENT_ID',
-            'AWS_ACCESS_KEY',
-            'AWS_SECRET_ACCESS_KEY',
-            'AWS_REGION',
-        ]),
-        htmlPlugin,
-    ],
+    plugins: [htmlPlugin],
 };

@@ -12,8 +12,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     registerUser: user => dispatch(actions.registerUser(user)),
     login: credentials => dispatch(actions.login(credentials)),
-    confirmUser: ({ confirmationCode, email }) =>
-        dispatch(actions.confirmUser({ confirmationCode, email })),
+    cancelRegister: () => dispatch(actions.cancelRegister()),
+    validateCode: ({ confirmationCode, email }) =>
+        dispatch(actions.validateCode({ confirmationCode, email })),
 });
 
 export default withRouter(

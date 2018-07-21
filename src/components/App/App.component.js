@@ -6,15 +6,21 @@ import Toolbar from '@material-ui/core/Toolbar';
 import WhatsHotIcon from '@material-ui/icons/Whatshot';
 import Typography from '@material-ui/core/Typography';
 import Router from 'components/Router/Router.container';
+import LoadingBar from 'react-redux-loading-bar';
 
-const styles = {
-    root: {
-        flexGrow: 1,
-    },
+const styles = () => ({
     logoIcon: {
         marginRight: 20,
     },
-};
+    root: {
+        background: 'radial-gradient(circle, #36383F, #202125)',
+        height: '100%',
+    },
+    loadingBar: {
+        height: 2,
+        backgroundColor: 'white',
+    },
+});
 
 @withStyles(styles)
 class App extends React.PureComponent {
@@ -35,6 +41,7 @@ class App extends React.PureComponent {
                         </Typography>
                     </Toolbar>
                 </AppBar>
+                <LoadingBar className={classes.loadingBar} />
                 <Router />
             </div>
         );

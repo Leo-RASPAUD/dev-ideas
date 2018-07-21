@@ -5,7 +5,9 @@
         "paths": {
             "components": ["./components"],
             "reducers": ["./reducers"],
-            "utils": ["./utils"]
+            "utils": ["./utils"],
+            "assets": ["./assets"],
+            "constants": ["./constants"]
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+    "name": "login",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+        "amazon-cognito-identity-js": "^2.0.16",
+        "node-fetch": "^2.1.2"
+    }
+}

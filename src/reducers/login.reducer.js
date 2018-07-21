@@ -9,13 +9,18 @@ const initialState = {
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
+        case LoginActions.states.CANCEL_REGISTER:
+            return {
+                ...state,
+                displayConfirmation: false,
+            };
         case LoginActions.states.LOGIN_REGISTER_SUCCESS:
         case LoginActions.states.LOGIN_SUCCESS:
             return {
                 ...state,
                 isError: false,
                 errorMessage: '',
-                displayConfirmation: action === LoginActions.states.LOGIN_REGISTER_SUCCESS,
+                displayConfirmation: action.type === LoginActions.states.LOGIN_REGISTER_SUCCESS,
                 user: {
                     ...state.user,
                     email: action.email,
