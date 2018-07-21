@@ -18,6 +18,7 @@ const styles = () => ({
     },
     loadingBar: {
         height: 2,
+        position: 'absolute',
         backgroundColor: 'white',
     },
 });

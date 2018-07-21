@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 require('@babel/polyfill');
@@ -49,14 +48,5 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
     },
-    plugins: [
-        new webpack.EnvironmentPlugin([
-            'COGNITO_USER_POOL_ID',
-            'COGNITO_CLIENT_ID',
-            'AWS_ACCESS_KEY',
-            'AWS_SECRET_ACCESS_KEY',
-            'AWS_REGION',
-        ]),
-        htmlPlugin,
-    ],
+    plugins: [htmlPlugin],
 };

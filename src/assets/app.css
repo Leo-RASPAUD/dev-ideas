@@ -6,7 +6,12 @@ input:-webkit-autofill:active {
     transition-delay: background-color 5000s, color 5000s;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     margin: 0;
-    height: 100vh;
+    height: 100%;
+    color: white;
 }
