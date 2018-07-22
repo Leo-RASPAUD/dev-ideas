@@ -60,10 +60,16 @@ const validateCode = ({ confirmationCode, email }) => async dispatch => {
 const login = ({ email, password }) => async dispatch => {
     dispatch(loginLoading());
     try {
-        await httpUtils.post({
+        const result = await httpUtils.post({
             url: lamdbaUtils.login,
             params: { email, password },
         });
+
+        window.localStorage.setItem('idToken', result.data.idToken.jwtToken);
+        window.localStorage.setItem('accessToken', result.data.accessToken.jwtToken);
+        window.localStorage.setItem('refreshToken', result.data.refreshToken.token);
+        window.localStorage.setItem('username', email);
+
         dispatch(loginSuccessAction({ email }));
         dispatch(goToHomeAction());
     } catch (error) {

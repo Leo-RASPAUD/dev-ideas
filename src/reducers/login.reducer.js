@@ -1,4 +1,5 @@
 import LoginActions from 'components/Login/Login.actions';
+import AppActions from 'components/App/App.actions';
 
 const initialState = {
     displayConfirmation: false,
@@ -40,6 +41,16 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 isError: true,
                 errorMessage: action.error,
+            };
+        case AppActions.states.CHECK_SESSION_FAILURE:
+            return {
+                ...state,
+                user: {},
+            };
+        case AppActions.states.CHECK_SESSION_SUCCESS:
+            return {
+                ...state,
+                user: action.user,
             };
         default:
             return state;

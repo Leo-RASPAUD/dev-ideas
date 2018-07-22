@@ -1,5 +1,19 @@
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import App from './App.component';
+import actions from './App.actions';
 
-export default withRouter(connect()(App));
+const mapStateToProps = state => ({
+    isAppInitializing: state.app.isAppInitializing,
+});
+
+const mapDispatchToProps = dispatch => ({
+    checkSession: () => dispatch(actions.checkSession()),
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps,
+    )(App),
+);
