@@ -15,7 +15,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
 
 module.exports = {
     entry: ['@babel/polyfill', './src/index.js'],
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [
             {
@@ -39,14 +39,9 @@ module.exports = {
             assets: path.resolve(__dirname, './src/assets'),
         },
     },
-    devServer: {
-        contentBase: './src',
-        historyApiFallback: true,
-        port: 9000,
-    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: '[name].js',
     },
     plugins: [htmlPlugin],
 };

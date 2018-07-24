@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 
 class Home extends React.Component {
     static propTypes = {
@@ -12,7 +11,7 @@ class Home extends React.Component {
         return (
             <div>
                 <h1>Home</h1>
-                <div>{user.firstName}</div>
+                <div>{user.email}</div>
             </div>
         );
     }

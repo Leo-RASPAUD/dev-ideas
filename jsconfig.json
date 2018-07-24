@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": "./src",
+        "paths": {
+            "components": ["./components"],
+            "reducers": ["./reducers"],
+            "utils": ["./utils"],
+            "assets": ["./assets"],
+            "constants": ["./constants"]
+        }
+    }
+}
