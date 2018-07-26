@@ -1,5 +1,6 @@
 import LoginActions from 'components/Login/Login.actions';
 import AppActions from 'components/App/App.actions';
+import AppToolbarActions from 'components/AppToolbar/AppToolbar.actions';
 
 const initialState = {
     displayConfirmation: false,
@@ -37,6 +38,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.user,
+            };
+        case AppToolbarActions.states.SIGN_OUT_SUCCESS:
+            return {
+                ...state,
+                user: {},
             };
         default:
             return state;

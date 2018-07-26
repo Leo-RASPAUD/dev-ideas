@@ -22,6 +22,12 @@ const styles = theme => ({
         ...cssConstants.alignItems.center,
         height: '100%',
     },
+    flex: {
+        flexGrow: 1,
+    },
+    accountCircle: {
+        backgroundColor: 'transparent',
+    },
 });
 
 export default styles;

@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux';
 import { Auth } from 'aws-amplify';
+import routes from 'utils/routes';
 
 const states = {
     LOGIN_REGISTER_LOADING: 'LOGIN_REGISTER_LOADING',
@@ -26,7 +27,7 @@ const loginLoading = () => ({ type: states.LOGIN_LOADING });
 const loginSuccessAction = ({ user }) => ({ type: states.LOGIN_SUCCESS, user });
 const loginFailureAction = ({ error }) => ({ type: states.LOGIN_FAILURE, error });
 
-const goToHomeAction = () => push('/home');
+const goToHomeAction = () => push(routes.home);
 const cancelRegisterAction = () => ({ type: states.CANCEL_REGISTER });
 
 const registerUser = ({ email, password }) => async dispatch => {
@@ -63,7 +64,7 @@ const login = ({ email, password }) => async dispatch => {
         dispatch(loginSuccessAction({ user: { ...user.attributes } }));
         dispatch(goToHomeAction());
     } catch (error) {
-        dispatch(loginFailureAction({ error: error.message }));
+        dispatch(loginFailureAction({ error: error.message || error }));
     }
 };
 

@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import AppToolbar from 'components/AppToolbar/AppToolbar.container';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Toolbar from '@material-ui/core/Toolbar';
-import WhatsHotIcon from '@material-ui/icons/Whatshot';
-import Typography from '@material-ui/core/Typography';
 import Router from 'components/Router/Router.container';
 import LoadingBar from 'react-redux-loading-bar';
 
@@ -41,12 +39,7 @@ class App extends React.PureComponent {
                 {!isAppInitializing && (
                     <Fragment>
                         <AppBar position="static">
-                            <Toolbar>
-                                <WhatsHotIcon className={classes.logoIcon} />
-                                <Typography variant="title" color="inherit">
-                                    Dev ideas
-                                </Typography>
-                            </Toolbar>
+                            <AppToolbar />
                         </AppBar>
                         <LoadingBar className={classes.loadingBar} />
                         <Router />

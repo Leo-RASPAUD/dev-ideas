@@ -1,5 +1,6 @@
 import AppActions from 'components/App/App.actions';
 import LoginActions from 'components/Login/Login.actions';
+import AppToolbarActions from 'components/AppToolbar/AppToolbar.actions';
 
 const initialState = {
     isAppInitializing: true,
@@ -25,6 +26,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: true,
+            };
+        case AppToolbarActions.states.SIGN_OUT_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false,
             };
         default:
             return state;

@@ -49,7 +49,7 @@ const theme = createMuiTheme({
         },
         MuiPaper: {
             root: {
-                backgroundColor: 'rgba(0, 0, 0, 0.18)',
+                backgroundColor: blue[800],
             },
         },
     },
