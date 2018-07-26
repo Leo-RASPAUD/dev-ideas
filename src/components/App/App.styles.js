@@ -11,7 +11,7 @@ const styles = theme => ({
     loadingBar: {
         height: 2,
         position: 'absolute',
-        backgroundColor: 'white',
+        backgroundColor: theme.palette.secondary.main,
     },
     progress: {
         margin: theme.spacing.unit * 2,

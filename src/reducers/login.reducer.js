@@ -7,14 +7,23 @@ const initialState = {
     errorMessage: '',
     isError: false,
     user: {},
+    isLoading: false,
 };
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
+        case LoginActions.states.LOGIN_CONFIRMATION_LOADING:
+        case LoginActions.states.LOGIN_LOADING:
+        case LoginActions.states.LOGIN_REGISTER_LOADING:
+            return {
+                ...state,
+                isLoading: true,
+            };
         case LoginActions.states.CANCEL_REGISTER:
             return {
                 ...state,
                 displayConfirmation: false,
+                isLoading: false,
             };
         case LoginActions.states.LOGIN_REGISTER_SUCCESS:
         case LoginActions.states.LOGIN_SUCCESS:
@@ -25,6 +34,7 @@ const appReducer = (state = initialState, action) => {
                 errorMessage: '',
                 displayConfirmation: action.type === LoginActions.states.LOGIN_REGISTER_SUCCESS,
                 user: action.user,
+                isLoading: false,
             };
         case LoginActions.states.LOGIN_CONFIRMATION_FAILURE:
         case LoginActions.states.LOGIN_REGISTER_FAILURE:
@@ -33,6 +43,7 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 isError: true,
                 errorMessage: action.error,
+                isLoading: false,
             };
         case AppActions.states.CHECK_SESSION_SUCCESS:
             return {

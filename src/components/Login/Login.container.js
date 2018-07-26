@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
     displayConfirmation: state.login.displayConfirmation,
     isError: state.login.isError,
     errorMessage: state.login.errorMessage,
+    isLoading: state.login.isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({

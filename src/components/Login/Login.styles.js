@@ -33,4 +33,11 @@ export default theme => ({
         ...cssConstants.alignItems.center,
         ...cssConstants.justifyContent.center,
     },
+    buttonsWrapper: {
+        ...cssConstants.display.flex,
+        ...cssConstants.alignItems.center,
+    },
+    buttonsLeft: {
+        flexGrow: 1,
+    },
 });

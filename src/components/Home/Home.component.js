@@ -9,7 +9,7 @@ class Home extends React.Component {
     render() {
         const { user } = this.props;
         return (
-            <div>
+            <div style={{ textAlign: 'center' }}>
                 <h1>Home</h1>
                 <div>{user.email}</div>
             </div>
