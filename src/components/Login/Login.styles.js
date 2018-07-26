@@ -14,8 +14,8 @@ export default theme => ({
     form: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
-        padding: 25,
-        margin: 50,
+        padding: '1vh',
+        margin: '2vh',
     },
     root: {
         ...cssConstants.display.flex,
