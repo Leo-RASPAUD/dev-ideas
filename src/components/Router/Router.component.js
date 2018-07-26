@@ -1,22 +1,39 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Home from 'components/Home/Home.container';
 import Login from 'components/Login/Login.container';
+import routes from 'utils/routes';
+
+const unauthenticatedRoutes = <Route exact path={routes.login} component={Login} />;
 
 class Router extends React.PureComponent {
     static propTypes = {
-        user: PropTypes.object.isRequired,
+        isAuthenticated: PropTypes.bool.isRequired,
+        location: PropTypes.object.isRequired,
+    };
+
+    authenticatedRoutes = () => {
+        const {
+            location: { pathname },
+        } = this.props;
+        if (pathname === routes.login) {
+            return <Redirect from={routes.login} to={routes.home} />;
+        }
+        return (
+            <Fragment>
+                <Route exact path={routes.home} component={Home} />
+            </Fragment>
+        );
     };
 
     render() {
-        const { user } = this.props;
-        const authenticated = user.email;
+        const { isAuthenticated } = this.props;
         return (
             <Switch>
-                <Route exact path="/login" component={Login} />
-                {authenticated && <Route exact path="/home" component={Home} />}
-                <Redirect to="/login" />
+                {!isAuthenticated && unauthenticatedRoutes}
+                {isAuthenticated && this.authenticatedRoutes()}
+                <Redirect to={routes.login} />
             </Switch>
         );
     }

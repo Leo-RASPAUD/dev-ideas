@@ -17,22 +17,13 @@ const appReducer = (state = initialState, action) => {
             };
         case LoginActions.states.LOGIN_REGISTER_SUCCESS:
         case LoginActions.states.LOGIN_SUCCESS:
-            return {
-                ...state,
-                isError: false,
-                errorMessage: '',
-                displayConfirmation: action.type === LoginActions.states.LOGIN_REGISTER_SUCCESS,
-                user: {
-                    ...state.user,
-                    email: action.email,
-                },
-            };
         case LoginActions.states.LOGIN_CONFIRMATION_SUCCESS:
             return {
                 ...state,
                 isError: false,
                 errorMessage: '',
-                displayConfirmation: false,
+                displayConfirmation: action.type === LoginActions.states.LOGIN_REGISTER_SUCCESS,
+                user: action.user,
             };
         case LoginActions.states.LOGIN_CONFIRMATION_FAILURE:
         case LoginActions.states.LOGIN_REGISTER_FAILURE:
@@ -41,11 +32,6 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 isError: true,
                 errorMessage: action.error,
-            };
-        case AppActions.states.CHECK_SESSION_FAILURE:
-            return {
-                ...state,
-                user: {},
             };
         case AppActions.states.CHECK_SESSION_SUCCESS:
             return {

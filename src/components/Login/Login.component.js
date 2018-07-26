@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -107,13 +107,13 @@ class Login extends React.PureComponent {
                             )}
                             <div className={classes.buttonsWrapper}>
                                 {displayConfirmation && (
-                                    <div>
+                                    <Fragment>
                                         <Button
                                             variant="contained"
                                             color="primary"
                                             className={classes.button}
                                             onClick={() =>
-                                                validateCode({ confirmationCode, email })
+                                                validateCode({ confirmationCode, email, password })
                                             }
                                         >
                                             Validate code
@@ -126,10 +126,10 @@ class Login extends React.PureComponent {
                                         >
                                             Cancel
                                         </Button>
-                                    </div>
+                                    </Fragment>
                                 )}
                                 {!displayConfirmation && (
-                                    <div>
+                                    <Fragment>
                                         <Button
                                             variant="contained"
                                             color="primary"
@@ -146,7 +146,7 @@ class Login extends React.PureComponent {
                                         >
                                             Login
                                         </Button>
-                                    </div>
+                                    </Fragment>
                                 )}
                             </div>
                             {isError && (

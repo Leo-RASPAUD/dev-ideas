@@ -1,7 +1,9 @@
 import AppActions from 'components/App/App.actions';
+import LoginActions from 'components/Login/Login.actions';
 
 const initialState = {
     isAppInitializing: true,
+    isAuthenticated: false,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -11,11 +13,18 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAppInitializing: false,
+                isAuthenticated: action.isAuthenticated,
             };
         case AppActions.states.CHECK_SESSION_LOADING:
             return {
                 ...state,
                 isAppInitializing: true,
+            };
+        case LoginActions.states.LOGIN_CONFIRMATION_SUCCESS:
+        case LoginActions.states.LOGIN_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
             };
         default:
             return state;

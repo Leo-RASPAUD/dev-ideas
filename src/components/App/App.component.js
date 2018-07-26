@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -39,7 +39,7 @@ class App extends React.PureComponent {
                     </div>
                 )}
                 {!isAppInitializing && (
-                    <div>
+                    <Fragment>
                         <AppBar position="static">
                             <Toolbar>
                                 <WhatsHotIcon className={classes.logoIcon} />
@@ -50,7 +50,7 @@ class App extends React.PureComponent {
                         </AppBar>
                         <LoadingBar className={classes.loadingBar} />
                         <Router />
-                    </div>
+                    </Fragment>
                 )}
             </div>
         );

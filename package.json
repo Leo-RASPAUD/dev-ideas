@@ -41,6 +41,7 @@
         "@babel/polyfill": "^7.0.0-beta.54",
         "@material-ui/core": "^1.4.0",
         "@material-ui/icons": "^1.1.0",
+        "aws-amplify": "^1.0.2",
         "aws-cli": "^0.0.2",
         "aws-sdk": "^2.279.1",
         "axios": "^0.18.0",

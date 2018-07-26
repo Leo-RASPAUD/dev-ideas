@@ -1,6 +1,5 @@
 import { push } from 'react-router-redux';
-import httpUtils from 'utils/http.utils';
-import lamdbaUtils from 'utils/lamdba.utils';
+import { Auth } from 'aws-amplify';
 
 const states = {
     LOGIN_REGISTER_LOADING: 'LOGIN_REGISTER_LOADING',
@@ -16,15 +15,15 @@ const states = {
 };
 
 const registerLoading = () => ({ type: states.LOGIN_REGISTER_LOADING });
-const registerSuccessAction = ({ email }) => ({ type: states.LOGIN_REGISTER_SUCCESS, email });
+const registerSuccessAction = ({ user }) => ({ type: states.LOGIN_REGISTER_SUCCESS, user });
 const registerFailureAction = ({ error }) => ({ type: states.LOGIN_REGISTER_FAILURE, error });
 
 const confirmLoading = () => ({ type: states.LOGIN_CONFIRMATION_LOADING });
-const confirmSuccessAction = () => ({ type: states.LOGIN_CONFIRMATION_SUCCESS });
+const confirmSuccessAction = ({ user }) => ({ type: states.LOGIN_CONFIRMATION_SUCCESS, user });
 const confirmFailureAction = ({ error }) => ({ type: states.LOGIN_CONFIRMATION_FAILURE, error });
 
 const loginLoading = () => ({ type: states.LOGIN_LOADING });
-const loginSuccessAction = ({ email }) => ({ type: states.LOGIN_SUCCESS, email });
+const loginSuccessAction = ({ user }) => ({ type: states.LOGIN_SUCCESS, user });
 const loginFailureAction = ({ error }) => ({ type: states.LOGIN_FAILURE, error });
 
 const goToHomeAction = () => push('/home');
@@ -33,47 +32,38 @@ const cancelRegisterAction = () => ({ type: states.CANCEL_REGISTER });
 const registerUser = ({ email, password }) => async dispatch => {
     dispatch(registerLoading());
     try {
-        await httpUtils.post({
-            url: lamdbaUtils.register,
-            params: { email, password },
+        await Auth.signUp({
+            username: email,
+            password,
         });
-        dispatch(registerSuccessAction({ email }));
+        dispatch(registerSuccessAction({ user: {} }));
     } catch (error) {
-        dispatch(registerFailureAction({ error: error.response.data.message }));
+        dispatch(registerFailureAction({ error: error.message }));
     }
 };
 
-const validateCode = ({ confirmationCode, email }) => async dispatch => {
+const validateCode = ({ confirmationCode, email, password }) => async dispatch => {
     dispatch(confirmLoading());
     try {
-        await httpUtils.post({
-            url: lamdbaUtils.validateCode,
-            params: { confirmationCode, email },
-        });
-        dispatch(confirmSuccessAction());
-        dispatch(goToHomeAction());
+        await Auth.confirmSignUp(email, confirmationCode);
+        await Auth.signIn(email, password);
+        const currentUser = await Auth.currentAuthenticatedUser();
+        dispatch(confirmSuccessAction({ user: { ...currentUser.attributes } }));
+        return dispatch(goToHomeAction());
     } catch (error) {
-        dispatch(confirmFailureAction({ error: error.message }));
+        return dispatch(confirmFailureAction({ error: error.message }));
     }
 };
 
 const login = ({ email, password }) => async dispatch => {
     dispatch(loginLoading());
     try {
-        const result = await httpUtils.post({
-            url: lamdbaUtils.login,
-            params: { email, password },
-        });
-
-        window.localStorage.setItem('idToken', result.data.idToken.jwtToken);
-        window.localStorage.setItem('accessToken', result.data.accessToken.jwtToken);
-        window.localStorage.setItem('refreshToken', result.data.refreshToken.token);
-        window.localStorage.setItem('username', email);
-
-        dispatch(loginSuccessAction({ email }));
+        await Auth.signIn(email, password);
+        const user = await Auth.currentAuthenticatedUser();
+        dispatch(loginSuccessAction({ user: { ...user.attributes } }));
         dispatch(goToHomeAction());
     } catch (error) {
-        dispatch(loginFailureAction({ email, error: error.message }));
+        dispatch(loginFailureAction({ error: error.message }));
     }
 };
 

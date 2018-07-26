@@ -12,6 +12,7 @@ import blue from '@material-ui/core/colors/blue';
 import pink from '@material-ui/core/colors/pink';
 import App from 'components/App/App.container';
 import './assets/app.css';
+import 'utils/amplify';
 
 const history = createHistory();
 
