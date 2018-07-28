@@ -11,8 +11,8 @@ const listIdeas = `query GetEvent($count: Int = 10, $nextToken: String) {
     }
 }`;
 
-const addIdea = `mutation CreateEvent($content: String!) {
-    addIdea(content: $content) {
+const addIdea = `mutation CreateEvent($content: String!, $email: String!) {
+    addIdea(content: $content, email: $email) {
         id
         content
         author

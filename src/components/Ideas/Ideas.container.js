@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import Ideas from './Ideas.component';
 import actions from './Ideas.actions';
 
+const mapStateToProps = state => ({
+    user: state.login.user,
+});
+
 const mapDispatchToProps = dispatch => ({
-    addIdea: ({ content }) => dispatch(actions.addIdea({ content })),
+    addIdea: ({ content, email }) => dispatch(actions.addIdea({ content, email })),
     deleteIdea: ({ id }) => dispatch(actions.deleteIdea({ id })),
     switchEditMode: ({ id }) => dispatch(actions.switchEditMode({ id })),
     cancelEdit: ({ id }) => dispatch(actions.cancelEdit({ id })),
@@ -14,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps,
     )(Ideas),
 );

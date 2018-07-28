@@ -6,7 +6,8 @@ const styles = theme => ({
     },
     root: {
         background: 'radial-gradient(circle, #222325, #202125)',
-        height: '100%',
+        height: 'auto',
+        minHeight: '100%',
     },
     loadingBar: {
         height: 2,

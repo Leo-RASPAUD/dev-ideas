@@ -42,7 +42,7 @@ class App extends React.PureComponent {
                     className={classes.snackbarError}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     open={error.length > 0}
-                    autoHideDuration={500000}
+                    autoHideDuration={5000}
                     onClose={this.closeSnackbar}
                 >
                     <SnackbarError message={error} />

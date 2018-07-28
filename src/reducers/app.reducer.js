@@ -9,8 +9,9 @@ const initialState = {
 };
 
 const appReducer = (state = initialState, action) => {
+    let newState = { ...state };
     if (action.type.match(/FAILURE/)) {
-        return {
+        newState = {
             ...state,
             error: action.error,
         };
@@ -18,34 +19,35 @@ const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case AppActions.states.CLEAR_ERROR:
             return {
-                ...state,
+                ...newState,
                 error: '',
             };
         case AppActions.states.CHECK_SESSION_SUCCESS:
         case AppActions.states.CHECK_SESSION_FAILURE:
             return {
-                ...state,
+                ...newState,
                 isAppInitializing: false,
                 isAuthenticated: action.isAuthenticated,
+                error: action.error,
             };
         case AppActions.states.CHECK_SESSION_LOADING:
             return {
-                ...state,
+                ...newState,
                 isAppInitializing: true,
             };
         case LoginActions.states.LOGIN_CONFIRMATION_SUCCESS:
         case LoginActions.states.LOGIN_SUCCESS:
             return {
-                ...state,
+                ...newState,
                 isAuthenticated: true,
             };
         case AppToolbarActions.states.SIGN_OUT_SUCCESS:
             return {
-                ...state,
+                ...newState,
                 isAuthenticated: false,
             };
         default:
-            return state;
+            return newState;
     }
 };
 

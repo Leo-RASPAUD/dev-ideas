@@ -14,9 +14,10 @@ const checkSessionSuccessAction = ({ isAuthenticated, user }) => ({
     isAuthenticated,
     user,
 });
-const checkSessionFailureAction = ({ isAuthenticated }) => ({
+const checkSessionFailureAction = ({ isAuthenticated, error }) => ({
     type: states.CHECK_SESSION_FAILURE,
     isAuthenticated,
+    error,
 });
 
 const checkSession = () => async dispatch => {

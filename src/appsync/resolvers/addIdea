@@ -9,7 +9,7 @@
         "createdOn": $util.dynamodb.toNumberJson($util.time.nowEpochMilliSeconds()),
         "updatedOn": $util.dynamodb.toNumberJson($util.time.nowEpochMilliSeconds()),
         "content": $util.dynamodb.toStringJson($ctx.args.content),
-        "author": $util.dynamodb.toStringJson($ctx.identity.username),
+        "author": $util.dynamodb.toStringJson($ctx.args.email),
     }
 }
 

@@ -33,10 +33,10 @@ const switchEditModeAction = ({ id }) => ({ type: states.IDEA_SWITCH_EDIT_MODE, 
 const updateContentAction = ({ id, content }) => ({ type: states.IDEA_EDIT_CONTENT, id, content });
 const cancelEditAction = ({ id }) => ({ type: states.CANCEL_EDIT, id });
 
-const addIdea = ({ content }) => async dispatch => {
+const addIdea = ({ content, email }) => async dispatch => {
     dispatch(addIdeaLoading());
     try {
-        const result = await API.graphql(graphqlOperation(ideaQueries.addIdea, { content }));
+        const result = await API.graphql(graphqlOperation(ideaQueries.addIdea, { content, email }));
         dispatch(addIdeaSuccessAction({ idea: result.data.addIdea }));
     } catch (error) {
         dispatch(addIdeaFailureAction({ error: errorHandler(error) }));
