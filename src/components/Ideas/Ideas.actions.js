@@ -1,6 +1,7 @@
 import { API, graphqlOperation } from 'aws-amplify';
 import ideaQueries from 'queries/Ideas';
 import errorHandler from 'utils/graphqlErrorHandler';
+import slack from 'utils/slack';
 
 const states = {
     IDEA_ADD_IDEA_LOADING: 'IDEA_ADD_IDEA_LOADING',
@@ -38,6 +39,20 @@ const addIdea = ({ content, email }) => async dispatch => {
     try {
         const result = await API.graphql(graphqlOperation(ideaQueries.addIdea, { content, email }));
         dispatch(addIdeaSuccessAction({ idea: result.data.addIdea }));
+        await slack.post({
+            message: 'New idea!',
+            fields: [
+                {
+                    title: 'User',
+                    value: email,
+                    short: true,
+                },
+                {
+                    title: 'Content',
+                    value: content,
+                },
+            ],
+        });
         setTimeout(() => {
             document.getElementById('addButton').scrollIntoView({
                 behavior: 'smooth',
@@ -61,6 +76,20 @@ const updateIdea = ({ id, content }) => async dispatch => {
     dispatch(updateIdeaLoading());
     try {
         const result = await API.graphql(graphqlOperation(ideaQueries.updateIdea, { id, content }));
+        await slack.post({
+            message: 'An idea has been updated!',
+            fields: [
+                {
+                    title: 'id',
+                    value: id,
+                    short: true,
+                },
+                {
+                    title: 'Content',
+                    value: content,
+                },
+            ],
+        });
         dispatch(updateIdeaSuccessAction({ idea: result.data.updateIdea }));
     } catch (error) {
         dispatch(updateIdeaFailureAction({ error: errorHandler(error) }));

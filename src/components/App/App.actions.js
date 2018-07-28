@@ -1,4 +1,5 @@
 import { Auth } from 'aws-amplify';
+import slack from 'utils/slack';
 
 const states = {
     CHECK_SESSION_LOADING: 'CHECK_SESSION_LOADING',
@@ -24,6 +25,15 @@ const checkSession = () => async dispatch => {
     dispatch(checkSessionLoadingAction());
     try {
         const user = await Auth.currentAuthenticatedUser();
+        await slack.post({
+            message: 'User logged back in',
+            fields: [
+                {
+                    title: 'Username',
+                    value: user.attributes.email,
+                },
+            ],
+        });
         dispatch(
             checkSessionSuccessAction({ isAuthenticated: true, user: { ...user.attributes } }),
         );
