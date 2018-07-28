@@ -5,7 +5,7 @@ const styles = theme => ({
         marginRight: 20,
     },
     root: {
-        background: 'radial-gradient(circle, #36383F, #202125)',
+        background: 'radial-gradient(circle, #222325, #202125)',
         height: '100%',
     },
     loadingBar: {

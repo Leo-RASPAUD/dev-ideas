@@ -7,6 +7,8 @@
             "reducers": ["./reducers"],
             "utils": ["./utils"],
             "assets": ["./assets"],
+            "queries": ["./queries"],
+            "config": ["./config"],
             "constants": ["./constants"]
         }
     }

@@ -1,11 +1,10 @@
+import LoadingBar from 'react-redux-loading-bar';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import AppToolbar from 'components/AppToolbar/AppToolbar.container';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { AppBar, CircularProgress } from '@material-ui/core';
+import AppToolbar from 'components/AppToolbar/AppToolbar.container';
 import Router from 'components/Router/Router.container';
-import LoadingBar from 'react-redux-loading-bar';
 
 import styles from './App.styles';
 

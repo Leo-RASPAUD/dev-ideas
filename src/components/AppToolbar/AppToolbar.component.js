@@ -1,14 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Avatar from '@material-ui/core/Avatar';
-import WhatsHotIcon from '@material-ui/icons/Whatshot';
-import Typography from '@material-ui/core/Typography';
-import Popover from '@material-ui/core/Popover';
-import Button from '@material-ui/core/Button';
+import { AccountCircle, Whatshot } from '@material-ui/icons';
+import { Toolbar, Avatar, Typography, Popover, Button, IconButton } from '@material-ui/core';
 
 import styles from './AppToolbar.styles';
 
@@ -93,7 +87,7 @@ class AppToolbar extends React.PureComponent {
         return (
             <Fragment>
                 <Toolbar>
-                    <WhatsHotIcon className={classes.logoIcon} />
+                    <Whatshot className={classes.logoIcon} />
                     <Typography variant="title" color="inherit" className={classes.flex}>
                         Dev ideas
                     </Typography>
