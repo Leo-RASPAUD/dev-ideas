@@ -1,21 +1,20 @@
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Home from './Home.component';
-import actions from './Home.actions';
+import AppToolbar from './AppToolbar.component';
+import actions from './AppToolbar.actions';
 
 const mapStateToProps = state => ({
+    isAuthenticated: state.app.isAuthenticated,
     user: state.login.user,
-    isLoadingIdeas: state.home.isLoadingIdeas,
-    ideas: state.home.ideas,
 });
 
 const mapDispatchToProps = dispatch => ({
-    listIdeas: () => dispatch(actions.listIdeas()),
+    signOut: () => dispatch(actions.signOut()),
 });
 
 export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps,
-    )(Home),
+    )(AppToolbar),
 );

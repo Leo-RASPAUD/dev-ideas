@@ -1,6 +1,9 @@
 import cssConstants from 'constants/css.constants';
 
 export default theme => ({
+    paper: {
+        backgroundColor: 'rgba(0, 0, 0, 0.18)',
+    },
     button: {
         margin: theme.spacing.unit,
     },
@@ -11,8 +14,8 @@ export default theme => ({
     form: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
-        padding: 25,
-        margin: 50,
+        padding: '1vh',
+        margin: '2vh',
     },
     root: {
         ...cssConstants.display.flex,
@@ -29,5 +32,12 @@ export default theme => ({
         ...cssConstants.display.flex,
         ...cssConstants.alignItems.center,
         ...cssConstants.justifyContent.center,
+    },
+    buttonsWrapper: {
+        ...cssConstants.display.flex,
+        ...cssConstants.alignItems.center,
+    },
+    buttonsLeft: {
+        flexGrow: 1,
     },
 });

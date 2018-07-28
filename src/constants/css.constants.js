@@ -24,7 +24,7 @@ export default {
         },
     }),
     buttonBackgroundColor: {
-        backgroundColor: 'rgba(0,0,0,0.05)',
+        backgroundColor: '#2a2b31',
     },
     overflow: {
         auto: {

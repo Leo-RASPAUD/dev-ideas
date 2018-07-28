@@ -11,7 +11,11 @@ import mainReducer from 'reducers/main.reducer';
 import blue from '@material-ui/core/colors/blue';
 import pink from '@material-ui/core/colors/pink';
 import App from 'components/App/App.container';
+import Amplify from 'aws-amplify';
 import './assets/app.css';
+import amplifyConfig from 'config/amplify';
+
+Amplify.configure(amplifyConfig);
 
 const history = createHistory();
 
@@ -48,7 +52,7 @@ const theme = createMuiTheme({
         },
         MuiPaper: {
             root: {
-                backgroundColor: 'rgba(0, 0, 0, 0.18)',
+                backgroundColor: blue[800],
             },
         },
     },

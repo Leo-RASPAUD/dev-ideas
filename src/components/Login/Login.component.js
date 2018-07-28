@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import { Lock, Done, AccountCircle, ErrorOutline } from '@material-ui/icons';
-import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import {
+    Button,
+    TextField,
+    Typography,
+    Paper,
+    CircularProgress,
+    Grid,
+    InputAdornment,
+} from '@material-ui/core';
 
 import styles from './Login.styles';
 
@@ -21,6 +24,7 @@ class Login extends React.PureComponent {
         login: PropTypes.func.isRequired,
         displayConfirmation: PropTypes.bool.isRequired,
         isError: PropTypes.bool.isRequired,
+        isLoading: PropTypes.bool.isRequired,
         errorMessage: PropTypes.string.isRequired,
     };
 
@@ -46,6 +50,7 @@ class Login extends React.PureComponent {
             cancelRegister,
             isError,
             errorMessage,
+            isLoading,
         } = this.props;
         const { email, password, confirmationCode } = this.state;
         return (
@@ -106,48 +111,56 @@ class Login extends React.PureComponent {
                                 />
                             )}
                             <div className={classes.buttonsWrapper}>
-                                {displayConfirmation && (
-                                    <div>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            className={classes.button}
-                                            onClick={() =>
-                                                validateCode({ confirmationCode, email })
-                                            }
-                                        >
-                                            Validate code
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            className={classes.button}
-                                            onClick={() => cancelRegister({ email })}
-                                        >
-                                            Cancel
-                                        </Button>
-                                    </div>
-                                )}
-                                {!displayConfirmation && (
-                                    <div>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            className={classes.button}
-                                            onClick={() => registerUser({ email, password })}
-                                        >
-                                            Register
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            className={classes.button}
-                                            onClick={() => login({ email, password })}
-                                        >
-                                            Login
-                                        </Button>
-                                    </div>
-                                )}
+                                <div className={classes.buttonsLeft}>
+                                    {displayConfirmation && (
+                                        <Fragment>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.button}
+                                                onClick={() =>
+                                                    validateCode({
+                                                        confirmationCode,
+                                                        email,
+                                                        password,
+                                                    })
+                                                }
+                                            >
+                                                Validate code
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.button}
+                                                onClick={() => cancelRegister({ email })}
+                                            >
+                                                Cancel
+                                            </Button>
+                                        </Fragment>
+                                    )}
+                                    {!displayConfirmation && (
+                                        <Fragment>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.button}
+                                                onClick={() => registerUser({ email, password })}
+                                            >
+                                                Register
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.button}
+                                                onClick={() => login({ email, password })}
+                                            >
+                                                Login
+                                            </Button>
+                                        </Fragment>
+                                    )}
+                                </div>
+
+                                {isLoading && <CircularProgress color="secondary" />}
                             </div>
                             {isError && (
                                 <div className={classes.error}>
