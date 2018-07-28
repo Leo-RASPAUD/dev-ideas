@@ -5,10 +5,22 @@ import AppToolbarActions from 'components/AppToolbar/AppToolbar.actions';
 const initialState = {
     isAppInitializing: true,
     isAuthenticated: false,
+    error: '',
 };
 
 const appReducer = (state = initialState, action) => {
+    if (action.type.match(/FAILURE/)) {
+        return {
+            ...state,
+            error: action.error,
+        };
+    }
     switch (action.type) {
+        case AppActions.states.CLEAR_ERROR:
+            return {
+                ...state,
+                error: '',
+            };
         case AppActions.states.CHECK_SESSION_SUCCESS:
         case AppActions.states.CHECK_SESSION_FAILURE:
             return {

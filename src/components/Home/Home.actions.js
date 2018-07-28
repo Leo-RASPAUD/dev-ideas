@@ -1,5 +1,6 @@
 import { API, graphqlOperation } from 'aws-amplify';
 import ideaQueries from 'queries/Ideas';
+import errorHandler from 'utils/graphqlErrorHandler';
 
 const states = {
     HOME_LIST_IDEAS_LOADING: 'HOME_LIST_IDEAS_LOADING',
@@ -17,11 +18,7 @@ const listIdeas = () => async dispatch => {
         const result = await API.graphql(graphqlOperation(ideaQueries.listIdeas, { count: 10 }));
         dispatch(listIdeasSuccessAction({ ideas: result.data.allIdeas.ideas }));
     } catch (error) {
-        dispatch(
-            listIdeasFailureAction({
-                error: error.errors.map(internalError => internalError.message).join(', '),
-            }),
-        );
+        dispatch(listIdeasFailureAction({ error: errorHandler(error) }));
     }
 };
 

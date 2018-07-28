@@ -1,8 +1,8 @@
 import HomeActions from 'components/Home/Home.actions';
+import IdeasActions from 'components/Ideas/Ideas.actions';
 
 const initialState = {
-    isLoadingIdeas: true,
-    error: '',
+    ideas: [],
 };
 
 const appReducer = (state = initialState, action) => {
@@ -10,14 +10,17 @@ const appReducer = (state = initialState, action) => {
         case HomeActions.states.HOME_LIST_IDEAS_SUCCESS:
             return {
                 ...state,
-                isLoadingIdeas: false,
-                error: '',
+                ideas: action.ideas,
             };
-        case HomeActions.states.HOME_LIST_IDEAS_FAILURE:
+        case IdeasActions.states.IDEA_ADD_IDEA_SUCCESS:
             return {
                 ...state,
-                isLoadingIdeas: false,
-                error: action.error,
+                ideas: state.ideas.concat(action.idea),
+            };
+        case IdeasActions.states.IDEA_DELETE_IDEA_SUCCESS:
+            return {
+                ...state,
+                ideas: state.ideas.filter(idea => idea.id !== action.id),
             };
         default:
             return state;

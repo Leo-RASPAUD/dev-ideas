@@ -1,0 +1,19 @@
+// Request
+{
+    "version" : "2017-02-28",
+    "operation" : "Scan"
+    #if( ${context.arguments.count} )
+        ,"limit": ${context.arguments.count}
+    #end
+    #if( ${context.arguments.nextToken} )
+        ,"nextToken": "${context.arguments.nextToken}"
+    #end
+}
+
+// Result
+{
+    "ideas": $utils.toJson($context.result.items)
+    #if( ${context.result.nextToken} )
+        ,"nextToken": "${context.result.nextToken}"
+    #end
+}

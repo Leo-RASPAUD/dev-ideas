@@ -4,6 +4,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar';
 import login from './login.reducer';
 import app from './app.reducer';
 import home from './home.reducer';
+import ideas from './ideas.reducer';
 
 const mainReducer = combineReducers({
     loadingBar: loadingBarReducer,
@@ -11,6 +12,7 @@ const mainReducer = combineReducers({
     app,
     login,
     home,
+    ideas,
 });
 
 export default mainReducer;

@@ -11,7 +11,7 @@ const listIdeas = `query GetEvent($count: Int = 10, $nextToken: String) {
     }
 }`;
 
-const createIdea = `mutation CreateEvent($content: String!) {
+const addIdea = `mutation CreateEvent($content: String!) {
     addIdea(content: $content) {
         id
         content
@@ -49,7 +49,7 @@ const deleteIdea = `mutation CreateEvent($id: String!) {
 
 export default {
     listIdeas,
-    createIdea,
+    addIdea,
     getIdea,
     deleteIdea,
     updateIdea,
