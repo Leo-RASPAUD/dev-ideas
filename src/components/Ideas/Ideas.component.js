@@ -24,10 +24,22 @@ class Ideas extends React.PureComponent {
                         <Typography>Author: {idea.author}</Typography>
                         <Typography>Updated on: {idea.updatedOn}</Typography>
                         <Typography>Created on: {idea.createdOn}</Typography>
-                        <Button onClick={() => deleteIdea({ id: idea.id })}>Delete</Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => deleteIdea({ id: idea.id })}
+                        >
+                            Delete
+                        </Button>
                     </Paper>
                 ))}
-                <Button onClick={() => addIdea({ content: 'New !' })}>Create new idea</Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => addIdea({ content: 'New !' })}
+                >
+                    Create new idea
+                </Button>
             </Fragment>
         );
     }
