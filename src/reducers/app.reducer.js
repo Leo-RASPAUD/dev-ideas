@@ -10,7 +10,7 @@ const initialState = {
 
 const appReducer = (state = initialState, action) => {
     let newState = { ...state };
-    if (action.type.match(/FAILURE/)) {
+    if (action.type !== AppActions.states.CHECK_SESSION_FAILURE && action.type.match(/FAILURE/)) {
         newState = {
             ...state,
             error: action.error,
