@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { green, red } from '@material-ui/core/colors';
 import { Edit, Save, Cancel, Add, Clear } from '@material-ui/icons';
-import { Paper, IconButton, TextField, Grid } from '@material-ui/core';
+import { Paper, IconButton, TextField, Grid, Tooltip } from '@material-ui/core';
 
 import styles from './Ideas.styles';
 
@@ -34,7 +34,7 @@ class Ideas extends React.PureComponent {
     render() {
         const { classes, ideas, addIdea, deleteIdea, updateContent, cancelEdit, user } = this.props;
         return (
-            <Grid container spacing={40} alignItems="center" justify="start">
+            <Grid container spacing={40} alignItems="center" justify="center">
                 {ideas.map(idea => (
                     <Grid
                         item
@@ -44,57 +44,66 @@ class Ideas extends React.PureComponent {
                         lg={4}
                         xl={2}
                         className={classnames('animated bounceInRight')}
+                        key={idea.id}
                     >
-                        <Paper key={idea.id} className={classes.paper}>
+                        <Paper className={classes.paper}>
                             <div>
                                 <div className={classes.buttons}>
                                     {idea.editInProgress && (
                                         <Fragment>
-                                            <IconButton
-                                                variant="contained"
-                                                style={{ color: 'white' }}
-                                                onClick={() => cancelEdit({ id: idea.id })}
-                                            >
-                                                <Cancel />
-                                            </IconButton>
-                                            <IconButton
-                                                variant="contained"
-                                                style={{ color: green[500] }}
-                                                onClick={() =>
-                                                    this.handleClick({
-                                                        editInProgress: idea.editInProgress,
-                                                        id: idea.id,
-                                                        content: idea.content,
-                                                    })
-                                                }
-                                            >
-                                                <Save />
-                                            </IconButton>
+                                            <Tooltip title="Cancel">
+                                                <IconButton
+                                                    variant="contained"
+                                                    style={{ color: 'white' }}
+                                                    onClick={() => cancelEdit({ id: idea.id })}
+                                                >
+                                                    <Cancel />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Save">
+                                                <IconButton
+                                                    variant="contained"
+                                                    style={{ color: green[500] }}
+                                                    onClick={() =>
+                                                        this.handleClick({
+                                                            editInProgress: idea.editInProgress,
+                                                            id: idea.id,
+                                                            content: idea.content,
+                                                        })
+                                                    }
+                                                >
+                                                    <Save />
+                                                </IconButton>
+                                            </Tooltip>
                                         </Fragment>
                                     )}
                                     {!idea.editInProgress && (
                                         <Fragment>
-                                            <IconButton
-                                                size="small"
-                                                variant="contained"
-                                                style={{ color: green[500] }}
-                                                onClick={() =>
-                                                    this.handleClick({
-                                                        editInProgress: idea.editInProgress,
-                                                        id: idea.id,
-                                                    })
-                                                }
-                                            >
-                                                <Edit />
-                                            </IconButton>
-                                            <IconButton
-                                                size="small"
-                                                variant="contained"
-                                                style={{ color: red[500] }}
-                                                onClick={() => deleteIdea({ id: idea.id })}
-                                            >
-                                                <Clear />
-                                            </IconButton>
+                                            <Tooltip title="Edit">
+                                                <IconButton
+                                                    size="small"
+                                                    variant="contained"
+                                                    style={{ color: green[500] }}
+                                                    onClick={() =>
+                                                        this.handleClick({
+                                                            editInProgress: idea.editInProgress,
+                                                            id: idea.id,
+                                                        })
+                                                    }
+                                                >
+                                                    <Edit />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Delete">
+                                                <IconButton
+                                                    size="small"
+                                                    variant="contained"
+                                                    style={{ color: red[500] }}
+                                                    onClick={() => deleteIdea({ id: idea.id })}
+                                                >
+                                                    <Clear />
+                                                </IconButton>
+                                            </Tooltip>
                                         </Fragment>
                                     )}
                                 </div>
@@ -141,16 +150,28 @@ class Ideas extends React.PureComponent {
                         </Paper>
                     </Grid>
                 ))}
-                <Grid item xs={10} sm={8} md={5} lg={4} xl={2} style={{ textAlign: 'center' }}>
-                    <IconButton
-                        variant="contained"
-                        style={{ backgroundColor: green[500] }}
-                        onClick={() =>
-                            addIdea({ content: 'My awesome new idea!', email: user.email })
-                        }
-                    >
-                        <Add />
-                    </IconButton>
+                <Grid
+                    item
+                    xs={10}
+                    sm={8}
+                    md={5}
+                    lg={4}
+                    xl={2}
+                    style={{ textAlign: 'center' }}
+                    id="addButton"
+                    className={classnames('animated bounceInLeft')}
+                >
+                    <Tooltip title="Add a new idea">
+                        <IconButton
+                            variant="contained"
+                            style={{ backgroundColor: green[500] }}
+                            onClick={() =>
+                                addIdea({ content: 'My awesome new idea!', email: user.email })
+                            }
+                        >
+                            <Add />
+                        </IconButton>
+                    </Tooltip>
                 </Grid>
             </Grid>
         );

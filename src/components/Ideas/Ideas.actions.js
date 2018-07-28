@@ -38,6 +38,11 @@ const addIdea = ({ content, email }) => async dispatch => {
     try {
         const result = await API.graphql(graphqlOperation(ideaQueries.addIdea, { content, email }));
         dispatch(addIdeaSuccessAction({ idea: result.data.addIdea }));
+        setTimeout(() => {
+            document.getElementById('addButton').scrollIntoView({
+                behavior: 'smooth',
+            });
+        }, 250);
     } catch (error) {
         dispatch(addIdeaFailureAction({ error: errorHandler(error) }));
     }

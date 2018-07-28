@@ -1,5 +1,6 @@
 export default () => ({
     root: {
-        padding: 50,
+        padding: '2vh 5vw',
+        height: '100%',
     },
 });

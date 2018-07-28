@@ -16,5 +16,5 @@ body {
     color: white;
 }
 body::-webkit-scrollbar {
-    width: 0px !important;
+    display: none;
 }
