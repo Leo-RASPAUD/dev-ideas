@@ -30,7 +30,7 @@ const composeFunctions = [
     ),
 ];
 
-if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+if (window.__REDUX_DEVTOOLS_EXTENSION__) {
     composeFunctions.push(window.__REDUX_DEVTOOLS_EXTENSION__());
 }
 

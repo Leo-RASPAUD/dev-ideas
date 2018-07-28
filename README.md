@@ -4,15 +4,16 @@
 
 ## Deployed on http://dev-ideas.s3-website-ap-southeast-2.amazonaws.com/
 
-| Technology  | Why?                                     |
-| ----------- | ---------------------------------------- |
-| React       | Frontend                                 |
-| Redux       | State management                         |
-| Webpack     | Application bundling                     |
-| AWS AppSync | Authentication + handle graphQL requests |
-| GraphQL     | Requests                                 |
-| DynamoDB    | Store data                               |
-| AWS S3      | Serve the static file                    |
+| Technology     | Why?                                     |
+| -------------- | ---------------------------------------- |
+| React          | Frontend                                 |
+| Redux          | State management                         |
+| Webpack        | Application bundling                     |
+| AWS AppSync    | Authentication + handle graphQL requests |
+| GraphQL        | Requests                                 |
+| DynamoDB       | Store data                               |
+| AWS S3         | Serve the static file                    |
+| AWS Cloudfront | DNS + cache                              |
 
 # Instructions
 

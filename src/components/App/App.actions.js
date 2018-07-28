@@ -1,4 +1,6 @@
 import { Auth } from 'aws-amplify';
+import { push } from 'react-router-redux';
+import routes from 'utils/routes';
 import slack from 'utils/slack';
 
 const states = {
@@ -9,6 +11,8 @@ const states = {
 };
 
 const clearErrorAction = () => ({ type: states.CLEAR_ERROR });
+const goToHomeAction = () => push(routes.home);
+const goToLoginAction = () => push(routes.login);
 const checkSessionLoadingAction = () => ({ type: states.CHECK_SESSION_LOADING });
 const checkSessionSuccessAction = ({ isAuthenticated, user }) => ({
     type: states.CHECK_SESSION_SUCCESS,
@@ -37,8 +41,10 @@ const checkSession = () => async dispatch => {
         dispatch(
             checkSessionSuccessAction({ isAuthenticated: true, user: { ...user.attributes } }),
         );
+        dispatch(goToHomeAction());
     } catch (error) {
         dispatch(checkSessionFailureAction({ error, isAuthenticated: false }));
+        dispatch(goToLoginAction());
     }
 };
 
