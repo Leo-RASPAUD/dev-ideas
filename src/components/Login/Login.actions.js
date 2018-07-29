@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux';
 import { Auth } from 'aws-amplify';
 import routes from 'utils/routes';
+import slack from 'utils/slack';
 
 const states = {
     LOGIN_REGISTER_LOADING: 'LOGIN_REGISTER_LOADING',
@@ -37,6 +38,15 @@ const registerUser = ({ email, password }) => async dispatch => {
             username: email,
             password,
         });
+        await slack.post({
+            message: 'New user registered',
+            fields: [
+                {
+                    title: 'Username',
+                    value: email,
+                },
+            ],
+        });
         dispatch(registerSuccessAction({ user: {} }));
     } catch (error) {
         dispatch(registerFailureAction({ error: error.message }));
@@ -61,6 +71,15 @@ const login = ({ email, password }) => async dispatch => {
     try {
         await Auth.signIn(email, password);
         const user = await Auth.currentAuthenticatedUser();
+        await slack.post({
+            message: 'New user logged in',
+            fields: [
+                {
+                    title: 'Username',
+                    value: email,
+                },
+            ],
+        });
         dispatch(loginSuccessAction({ user: { ...user.attributes } }));
         dispatch(goToHomeAction());
     } catch (error) {

@@ -6,7 +6,7 @@ import actions from './Home.actions';
 const mapStateToProps = state => ({
     user: state.login.user,
     isLoadingIdeas: state.home.isLoadingIdeas,
-    ideas: state.home.ideas,
+    ideas: state.ideas.ideas,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -14,6 +14,7 @@ import App from 'components/App/App.container';
 import Amplify from 'aws-amplify';
 import './assets/app.css';
 import amplifyConfig from 'config/amplify';
+import 'animate.css';
 
 Amplify.configure(amplifyConfig);
 
@@ -29,7 +30,7 @@ const composeFunctions = [
     ),
 ];
 
-if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+if (window.__REDUX_DEVTOOLS_EXTENSION__) {
     composeFunctions.push(window.__REDUX_DEVTOOLS_EXTENSION__());
 }
 
@@ -49,10 +50,17 @@ const theme = createMuiTheme({
             root: {
                 color: blue[500],
             },
+            disabled: {
+                color: `${blue[500]} !important`,
+                cursor: 'text',
+                '&:before': {
+                    borderBottom: `1px solid ${blue[500]} !important`,
+                },
+            },
         },
         MuiPaper: {
             root: {
-                backgroundColor: blue[800],
+                backgroundColor: 'rgba(0, 0, 0, 0.18)',
             },
         },
     },

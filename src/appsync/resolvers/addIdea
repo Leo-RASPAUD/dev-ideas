@@ -1,0 +1,18 @@
+// Request
+{
+    "version" : "2017-02-28",
+    "operation" : "PutItem",
+    "key" : {
+        "id": $util.dynamodb.toDynamoDBJson($utils.autoId())
+    },
+    "attributeValues" : {
+        "createdOn": $util.dynamodb.toNumberJson($util.time.nowEpochMilliSeconds()),
+        "updatedOn": $util.dynamodb.toNumberJson($util.time.nowEpochMilliSeconds()),
+        "content": $util.dynamodb.toStringJson($ctx.args.content),
+        "author": $util.dynamodb.toStringJson($ctx.args.email),
+    }
+}
+
+
+// Result
+$util.toJson($ctx.result)

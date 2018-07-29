@@ -1,9 +1,6 @@
 import cssConstants from 'constants/css.constants';
 
 export default theme => ({
-    paper: {
-        backgroundColor: 'rgba(0, 0, 0, 0.18)',
-    },
     button: {
         margin: theme.spacing.unit,
     },

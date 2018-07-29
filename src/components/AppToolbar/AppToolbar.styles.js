@@ -5,7 +5,7 @@ const contentPadding = 20;
 const buttonsHeight = 50;
 const buttonsPadding = 10;
 
-const styles = () => ({
+const styles = theme => ({
     logoIcon: {
         marginRight: 20,
     },
@@ -21,6 +21,8 @@ const styles = () => ({
         textTransform: 'initial',
     },
     contentWrapper: {
+        backgroundColor: '#2a2b31',
+        borderBottom: `1px solid ${theme.palette.secondary.main}`,
         height: contentHeight - contentPadding,
         padding: `0 ${contentPadding}px`,
         ...cssConstants.display.flex,
