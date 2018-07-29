@@ -2,7 +2,7 @@
 
 ## This repository has been created to test out the serverless stack, and to store the devevlopment ideas that I may have!
 
-## Deployed on http://dev-ideas.s3-website-ap-southeast-2.amazonaws.com/
+## Deployed on https://d3ig7nj0f1npvb.cloudfront.net
 
 | Technology     | Why?                                     |
 | -------------- | ---------------------------------------- |
