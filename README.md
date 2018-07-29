@@ -1,8 +1,8 @@
 # Dev-ideas :fire:
 
-## This repository has been created to test out the serverless stack, and to store the devevlopment ideas that I may have!
+### This repository has been created to test out the serverless stack, and to store the development ideas that I may have!
 
-## Deployed on https://d3ig7nj0f1npvb.cloudfront.net
+### Deployed on https://d3ig7nj0f1npvb.cloudfront.net
 
 | Technology     | Why?                                     |
 | -------------- | ---------------------------------------- |
