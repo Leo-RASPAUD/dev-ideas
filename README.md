@@ -14,6 +14,7 @@
 | DynamoDB       | Store data                               |
 | AWS S3         | Serve the static file                    |
 | AWS Cloudfront | DNS + cache                              |
+| AWS Cognito    | User management                          |
 
 # Instructions
 
