@@ -6,10 +6,11 @@
         "id" : $util.dynamodb.toDynamoDBJson(${ctx.args.id})
     },
     "update" : {
-        "expression" : "SET updatedOn = :updatedOn ADD votes :vote",
+        "expression" : "SET updatedOn = :updatedOn, updatedBy = :updatedBy ADD votes :vote",
         "expressionValues": {
             ":vote" : $util.dynamodb.toStringSetJson([$ctx.args.email]),
             ":updatedOn": $util.dynamodb.toNumberJson($util.time.nowEpochMilliSeconds()),
+            ":updatedBy": $util.dynamodb.toStringJson($ctx.args.email),
         }
     }
 }
