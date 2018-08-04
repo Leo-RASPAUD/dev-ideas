@@ -57,7 +57,13 @@ class Login extends React.PureComponent {
             <Grid container className={classes.root}>
                 <Grid item xs={10} sm={8} md={5} lg={4} xl={2}>
                     <Paper className={classes.paper}>
-                        <form className={classes.form}>
+                        <form
+                            className={classes.form}
+                            onSubmit={event => {
+                                event.preventDefault();
+                                login({ email, password });
+                            }}
+                        >
                             <TextField
                                 id="email"
                                 autoComplete="email"
@@ -152,7 +158,8 @@ class Login extends React.PureComponent {
                                                 variant="contained"
                                                 color="primary"
                                                 className={classes.button}
-                                                onClick={() => login({ email, password })}
+                                                type="submit"
+                                                // onClick={() => login({ email, password })}
                                             >
                                                 Login
                                             </Button>
