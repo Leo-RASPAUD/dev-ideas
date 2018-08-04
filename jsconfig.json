@@ -8,6 +8,7 @@
             "utils": ["./utils"],
             "assets": ["./assets"],
             "queries": ["./queries"],
+            "subscriptions": ["./subscriptions"],
             "config": ["./config"],
             "constants": ["./constants"]
         }

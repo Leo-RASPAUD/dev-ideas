@@ -39,6 +39,7 @@ module.exports = {
             assets: path.resolve(__dirname, './src/assets'),
             queries: path.resolve(__dirname, './src/queries'),
             config: path.resolve(__dirname, './src/config'),
+            subscriptions: path.resolve(__dirname, './src/subscriptions'),
         },
     },
     output: {

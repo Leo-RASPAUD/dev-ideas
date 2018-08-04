@@ -12,17 +12,20 @@ class Home extends React.PureComponent {
         user: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired,
         listIdeas: PropTypes.func.isRequired,
+        subscribeToNewIdeas: PropTypes.func.isRequired,
+        subscribeToDeleteIdea: PropTypes.func.isRequired,
         isLoadingIdeas: PropTypes.bool.isRequired,
         ideas: PropTypes.array.isRequired,
     };
 
-    componentDidMount = () => {
-        const { listIdeas } = this.props;
+    componentWillMount = () => {
+        const { listIdeas, subscribeToNewIdeas, subscribeToDeleteIdea } = this.props;
         listIdeas();
+        subscribeToNewIdeas();
+        subscribeToDeleteIdea();
     };
 
     render() {
-        // Todo: test errors (remove conf)
         const { classes, user, ideas, isLoadingIdeas } = this.props;
         return (
             <div className={classes.root}>

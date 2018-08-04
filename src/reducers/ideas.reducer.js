@@ -5,25 +5,31 @@ const initialState = {
     ideas: [],
 };
 
+const getInitialIdea = idea => ({
+    ...idea,
+    editInProgress: false,
+    initialContent: idea.content,
+});
+
+const getIdeasAfterSubscription = ({ action, state }) => {
+    const newIdea = action.idea;
+    if (state.ideas.find(idea => idea.id === newIdea.id)) {
+        return state.ideas;
+    }
+    return state.ideas.concat(getInitialIdea(action.idea));
+};
+
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case HomeActions.states.HOME_LIST_IDEAS_SUCCESS:
             return {
                 ...state,
-                ideas: action.ideas.map(idea => ({
-                    ...idea,
-                    editInProgress: false,
-                    initialContent: idea.content,
-                })),
+                ideas: action.ideas.map(idea => getInitialIdea(idea)),
             };
         case IdeasActions.states.IDEA_ADD_IDEA_SUCCESS:
             return {
                 ...state,
-                ideas: state.ideas.concat({
-                    editInProgress: false,
-                    ...action.idea,
-                    initialContent: action.idea.content,
-                }),
+                ideas: state.ideas.concat(getInitialIdea(action.idea)),
             };
         case IdeasActions.states.IDEA_UPDATE_IDEA_SUCCESS:
             return {
@@ -31,11 +37,7 @@ const appReducer = (state = initialState, action) => {
                 ideas: state.ideas.map(idea => {
                     const ideaCopy = { ...idea };
                     if (ideaCopy.id === action.idea.id) {
-                        return {
-                            ...action.idea,
-                            editInProgress: false,
-                            initialContent: action.idea.content,
-                        };
+                        return getInitialIdea(action.idea);
                     }
                     return ideaCopy;
                 }),
@@ -51,6 +53,7 @@ const appReducer = (state = initialState, action) => {
                     return ideaCopy;
                 }),
             };
+        case HomeActions.states.HOME_DELETE_IDEA_FROM_SUBSCRIPTION:
         case IdeasActions.states.IDEA_DELETE_IDEA_SUCCESS:
             return {
                 ...state,
@@ -78,6 +81,11 @@ const appReducer = (state = initialState, action) => {
                     }
                     return ideaCopy;
                 }),
+            };
+        case HomeActions.states.HOME_ADD_IDEA_FROM_SUBSCRIPTION:
+            return {
+                ...state,
+                ideas: getIdeasAfterSubscription({ action, state }),
             };
         default:
             return state;
