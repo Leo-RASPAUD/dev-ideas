@@ -19,12 +19,18 @@ const getIdeasAfterSubscription = ({ action, state }) => {
     return state.ideas.concat(getInitialIdea(action.idea));
 };
 
+const sortByContent = (a, b) => {
+    if (a.content < b.content) return -1;
+    if (a.content > b.content) return 1;
+    return 0;
+};
+
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case HomeActions.states.HOME_LIST_IDEAS_SUCCESS:
             return {
                 ...state,
-                ideas: action.ideas.map(idea => getInitialIdea(idea)),
+                ideas: action.ideas.map(idea => getInitialIdea(idea)).sort(sortByContent),
             };
         case IdeasActions.states.IDEA_ADD_IDEA_SUCCESS:
             return {
