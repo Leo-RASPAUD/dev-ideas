@@ -1,26 +1,34 @@
 import AppActions from 'components/App/App.actions';
 import LoginActions from 'components/Login/Login.actions';
+import snackbarTypes from 'utils/snackbarTypes';
 import AppToolbarActions from 'components/AppToolbar/AppToolbar.actions';
+import SnackbarActions from 'components/Snackbar/Snackbar.actions';
 
 const initialState = {
     isAppInitializing: true,
     isAuthenticated: false,
-    error: '',
+    isSnackbarDisplayed: false,
+    snackbarMessage: '',
+    snackbarType: snackbarTypes.INFO,
+    snackbarDuration: 5000,
 };
 
 const appReducer = (state = initialState, action) => {
-    let newState = { ...state };
+    const newState = { ...state };
     if (action.type !== AppActions.states.CHECK_SESSION_FAILURE && action.type.match(/FAILURE/)) {
-        newState = {
-            ...state,
-            error: action.error,
-        };
+        newState.snackbarMessage = action.error;
+        newState.isSnackbarDisplayed = true;
+        newState.snackbarType = snackbarTypes.ERROR;
     }
     switch (action.type) {
-        case AppActions.states.CLEAR_ERROR:
+        case SnackbarActions.states.REQUEST_SHOW_SNACKBAR:
+        case SnackbarActions.states.CLOSE_SNACKBAR:
             return {
                 ...newState,
-                error: '',
+                isSnackbarDisplayed: action.isSnackbarDisplayed,
+                snackbarMessage: action.snackbarMessage,
+                snackbarType: action.snackbarType,
+                snackbarDuration: action.snackbarDuration || state.snackbarDuration,
             };
         case AppActions.states.CHECK_SESSION_SUCCESS:
         case AppActions.states.CHECK_SESSION_FAILURE:

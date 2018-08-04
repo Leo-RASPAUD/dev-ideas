@@ -5,12 +5,10 @@ import actions from './App.actions';
 
 const mapStateToProps = state => ({
     isAppInitializing: state.app.isAppInitializing,
-    error: state.app.error,
 });
 
 const mapDispatchToProps = dispatch => ({
     checkSession: () => dispatch(actions.checkSession()),
-    clearError: () => dispatch(actions.clearError()),
 });
 
 export default withRouter(

@@ -2,6 +2,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import ideaQueries from 'queries/Ideas';
 import errorHandler from 'utils/graphqlErrorHandler';
 import ideaSubscriptions from 'subscriptions/Ideas';
+import snackbarUtils from 'utils/snackbarUtils';
 
 const states = {
     HOME_LIST_IDEAS_LOADING: 'HOME_LIST_IDEAS_LOADING',
@@ -38,6 +39,11 @@ const subscribeToNewIdeas = () => async dispatch => {
         next: eventData => {
             const idea = eventData.value.data.addedIdea;
             dispatch(newIdeaFromSubscriptionAction({ idea }));
+            dispatch(
+                snackbarUtils.displaySnackbarSuccess({
+                    message: `A new idea has been added by ${idea.author}.`,
+                }),
+            );
         },
     });
 };
@@ -46,6 +52,11 @@ const subscribeToDeleteIdea = () => async dispatch => {
         next: eventData => {
             const idea = eventData.value.data.deletedIdea;
             dispatch(deletedIdeaFromSubscriptionAction({ id: idea.id }));
+            dispatch(
+                snackbarUtils.displaySnackbarInfo({
+                    message: 'An idea has been deleted by another user.',
+                }),
+            );
         },
     });
 };
