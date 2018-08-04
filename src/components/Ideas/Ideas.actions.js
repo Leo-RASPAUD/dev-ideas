@@ -2,6 +2,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import ideaQueries from 'queries/Ideas';
 import errorHandler from 'utils/graphqlErrorHandler';
 import slack from 'utils/slack';
+import snackbarUtils from 'utils/snackbarUtils';
 
 const states = {
     IDEA_ADD_IDEA_LOADING: 'IDEA_ADD_IDEA_LOADING',
@@ -91,6 +92,7 @@ const updateIdea = ({ id, content }) => async dispatch => {
             ],
         });
         dispatch(updateIdeaSuccessAction({ idea: result.data.updateIdea }));
+        dispatch(snackbarUtils.displaySnackbarSuccess({ message: 'Idea successfuly updated' }));
     } catch (error) {
         dispatch(updateIdeaFailureAction({ error: errorHandler(error) }));
     }

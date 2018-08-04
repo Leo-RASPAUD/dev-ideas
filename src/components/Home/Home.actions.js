@@ -54,7 +54,7 @@ const subscribeToDeleteIdea = () => async dispatch => {
             dispatch(deletedIdeaFromSubscriptionAction({ id: idea.id }));
             dispatch(
                 snackbarUtils.displaySnackbarInfo({
-                    message: 'An idea has been deleted by another user.',
+                    message: 'An idea has been deleted.',
                 }),
             );
         },
