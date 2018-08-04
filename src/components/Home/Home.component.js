@@ -14,15 +14,26 @@ class Home extends React.PureComponent {
         listIdeas: PropTypes.func.isRequired,
         subscribeToNewIdeas: PropTypes.func.isRequired,
         subscribeToDeleteIdea: PropTypes.func.isRequired,
+        subscribeToDownvotedIdea: PropTypes.func.isRequired,
+        subscribeToUpvotedIdea: PropTypes.func.isRequired,
         isLoadingIdeas: PropTypes.bool.isRequired,
         ideas: PropTypes.array.isRequired,
     };
 
     componentWillMount = () => {
-        const { listIdeas, subscribeToNewIdeas, subscribeToDeleteIdea } = this.props;
-        listIdeas();
+        const {
+            listIdeas,
+            subscribeToNewIdeas,
+            subscribeToDeleteIdea,
+            user,
+            subscribeToUpvotedIdea,
+            subscribeToDownvotedIdea,
+        } = this.props;
+        listIdeas({ currentEmail: user.email });
         subscribeToNewIdeas();
         subscribeToDeleteIdea();
+        subscribeToDownvotedIdea({ currentEmail: user.email });
+        subscribeToUpvotedIdea({ currentEmail: user.email });
     };
 
     render() {

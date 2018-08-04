@@ -10,9 +10,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    listIdeas: () => dispatch(actions.listIdeas()),
+    listIdeas: ({ currentEmail }) => dispatch(actions.listIdeas({ currentEmail })),
     subscribeToNewIdeas: () => dispatch(actions.subscribeToNewIdeas()),
     subscribeToDeleteIdea: () => dispatch(actions.subscribeToDeleteIdea()),
+    subscribeToDownvotedIdea: ({ currentEmail }) =>
+        dispatch(actions.subscribeToDownvotedIdea({ currentEmail })),
+    subscribeToUpvotedIdea: ({ currentEmail }) =>
+        dispatch(actions.subscribeToUpvotedIdea({ currentEmail })),
 });
 
 export default withRouter(

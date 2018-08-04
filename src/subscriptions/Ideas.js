@@ -1,23 +1,37 @@
+const Idea = `
+    id
+    author
+    content
+    updatedOn
+    createdOn
+    votes
+    updatedBy
+`;
+
 const subscribeToNewIdeas = `subscription subscribeToNewIdeas {
     addedIdea {
-        id
-        content
-        author
-        createdOn
-        updatedOn
+        ${Idea}
     }
 }`;
 const subscribeToDeleteIdea = `subscription subscribeToDeleteIdea {
     deletedIdea {
-        id
-        content
-        author
-        createdOn
-        updatedOn
+        ${Idea}
+    }
+}`;
+const subscribeToUpvotedIdea = `subscription subscribeToUpvotedIdea {
+    upvotedIdea {
+        ${Idea}
+    }
+}`;
+const subscribeToDownvotedIdea = `subscription subscribeToDownvotedIdea {
+    downvotedIdea {
+        ${Idea}
     }
 }`;
 
 export default {
     subscribeToNewIdeas,
     subscribeToDeleteIdea,
+    subscribeToUpvotedIdea,
+    subscribeToDownvotedIdea,
 };

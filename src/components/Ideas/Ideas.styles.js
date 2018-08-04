@@ -8,7 +8,7 @@ export default theme => ({
     buttons: {
         ...cssConstants.display.flex,
         ...cssConstants.justifyContent.flexEnd,
-        padding: '10px 10px 0 0',
+        padding: '48px 48px 0 0',
     },
     content: {
         padding: '0 48px 48px 48px',
@@ -17,5 +17,26 @@ export default theme => ({
     },
     textField: {
         margin: theme.spacing.unit,
+    },
+    upvote: {
+        ...cssConstants.display.flex,
+        ...cssConstants.alignItems.center,
+        flex: 1,
+        marginLeft: 48,
+    },
+    count: {
+        ...cssConstants.cursor.default,
+        color: 'white',
+    },
+    thumbButtons: {
+        color: theme.palette.primary.main,
+    },
+    actionButtons: {
+        marginRight: -36,
+        marginTop: -36,
+    },
+    smallButton: {
+        height: 40,
+        width: 40,
     },
 });

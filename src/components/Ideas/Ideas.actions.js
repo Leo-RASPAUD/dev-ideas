@@ -11,6 +11,12 @@ const states = {
     IDEA_UPDATE_IDEA_LOADING: 'IDEA_UPDATE_IDEA_LOADING',
     IDEA_UPDATE_IDEA_SUCCESS: 'IDEA_UPDATE_IDEA_SUCCESS',
     IDEA_UPDATE_IDEA_FAILURE: 'IDEA_UPDATE_IDEA_FAILURE',
+    IDEA_DOWNVOTE_IDEA_FAILURE: 'IDEA_DOWNVOTE_IDEA_FAILURE',
+    IDEA_DOWNVOTE_IDEA_LOADING: 'IDEA_DOWNVOTE_IDEA_LOADING',
+    IDEA_DOWNVOTE_IDEA_SUCCESS: 'IDEA_DOWNVOTE_IDEA_SUCCESS',
+    IDEA_UPVOTE_IDEA_FAILURE: 'IDEA_UPVOTE_IDEA_FAILURE',
+    IDEA_UPVOTE_IDEA_LOADING: 'IDEA_UPVOTE_IDEA_LOADING',
+    IDEA_UPVOTE_IDEA_SUCCESS: 'IDEA_UPVOTE_IDEA_SUCCESS',
     IDEA_DELETE_IDEA_LOADING: 'IDEA_DELETE_IDEA_LOADING',
     IDEA_DELETE_IDEA_SUCCESS: 'IDEA_DELETE_IDEA_SUCCESS',
     IDEA_DELETE_IDEA_FAILURE: 'IDEA_DELETE_IDEA_FAILURE',
@@ -26,6 +32,17 @@ const addIdeaFailureAction = ({ error }) => ({ type: states.IDEA_ADD_IDEA_FAILUR
 const updateIdeaLoading = () => ({ type: states.IDEA_UPDATE_IDEA_LOADING });
 const updateIdeaSuccessAction = ({ idea }) => ({ type: states.IDEA_UPDATE_IDEA_SUCCESS, idea });
 const updateIdeaFailureAction = ({ error }) => ({ type: states.IDEA_UPDATE_IDEA_FAILURE, error });
+
+const downvoteIdeaLoading = () => ({ type: states.IDEA_DOWNVOTE_IDEA_LOADING });
+const downvoteIdeaSuccessAction = ({ idea }) => ({ type: states.IDEA_DOWNVOTE_IDEA_SUCCESS, idea });
+const downvoteIdeaFailureAction = ({ error }) => ({
+    type: states.IDEA_DOWNVOTE_IDEA_FAILURE,
+    error,
+});
+
+const upvoteIdeaLoading = () => ({ type: states.IDEA_UPVOTE_IDEA_LOADING });
+const upvoteIdeaSuccessAction = ({ idea }) => ({ type: states.IDEA_UPVOTE_IDEA_SUCCESS, idea });
+const upvoteIdeaFailureAction = ({ error }) => ({ type: states.IDEA_UPVOTE_IDEA_FAILURE, error });
 
 const deleteIdeaLoading = () => ({ type: states.IDEA_DELETE_IDEA_LOADING });
 const deleteIdeaSuccessAction = ({ id }) => ({ type: states.IDEA_DELETE_IDEA_SUCCESS, id });
@@ -73,10 +90,13 @@ const deleteIdea = ({ id }) => async dispatch => {
         dispatch(deleteIdeaFailureAction({ error: errorHandler(error) }));
     }
 };
-const updateIdea = ({ id, content }) => async dispatch => {
+
+const updateIdea = ({ id, content, email }) => async dispatch => {
     dispatch(updateIdeaLoading());
     try {
-        const result = await API.graphql(graphqlOperation(ideaQueries.updateIdea, { id, content }));
+        const result = await API.graphql(
+            graphqlOperation(ideaQueries.updateIdea, { id, content, email }),
+        );
         await slack.post({
             message: 'An idea has been updated!',
             fields: [
@@ -98,6 +118,28 @@ const updateIdea = ({ id, content }) => async dispatch => {
     }
 };
 
+const downvoteIdea = ({ id, email }) => async dispatch => {
+    dispatch(downvoteIdeaLoading());
+    try {
+        const result = await API.graphql(graphqlOperation(ideaQueries.downvoteIdea, { id, email }));
+        dispatch(downvoteIdeaSuccessAction({ idea: result.data.downvoteIdea }));
+        dispatch(snackbarUtils.displaySnackbarSuccess({ message: 'Idea updated' }));
+    } catch (error) {
+        dispatch(downvoteIdeaFailureAction({ error: errorHandler(error) }));
+    }
+};
+
+const upvoteIdea = ({ id, email }) => async dispatch => {
+    dispatch(upvoteIdeaLoading());
+    try {
+        const result = await API.graphql(graphqlOperation(ideaQueries.upvoteIdea, { id, email }));
+        dispatch(upvoteIdeaSuccessAction({ idea: result.data.upvoteIdea }));
+        dispatch(snackbarUtils.displaySnackbarSuccess({ message: 'Idea updated' }));
+    } catch (error) {
+        dispatch(upvoteIdeaFailureAction({ error: errorHandler(error) }));
+    }
+};
+
 const switchEditMode = ({ id }) => dispatch => {
     dispatch(switchEditModeAction({ id }));
 };
@@ -116,4 +158,6 @@ export default {
     updateContent,
     updateIdea,
     states,
+    upvoteIdea,
+    downvoteIdea,
 };

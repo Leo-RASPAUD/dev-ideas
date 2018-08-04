@@ -10,6 +10,8 @@
         "updatedOn": $util.dynamodb.toNumberJson($util.time.nowEpochMilliSeconds()),
         "content": $util.dynamodb.toStringJson($ctx.args.content),
         "author": $util.dynamodb.toStringJson($ctx.args.email),
+        "isPublic": $util.dynamodb.toBooleanJson(true),
+        "votes" : $util.dynamodb.toStringSetJson([]),
     }
 }
 

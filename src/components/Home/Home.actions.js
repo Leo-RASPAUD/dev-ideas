@@ -10,25 +10,44 @@ const states = {
     HOME_LIST_IDEAS_FAILURE: 'HOME_LIST_IDEAS_FAILURE',
     HOME_ADD_IDEA_FROM_SUBSCRIPTION: 'HOME_ADD_IDEA_FROM_SUBSCRIPTION',
     HOME_DELETE_IDEA_FROM_SUBSCRIPTION: 'HOME_DELETE_IDEA_FROM_SUBSCRIPTION',
+    UPVOTED_IDEA_FROM_SUBSCRIPTION: 'UPVOTED_IDEA_FROM_SUBSCRIPTION',
+    DOWNVOTED_IDEA_FROM_SUBSCRIPTION: 'DOWNVOTED_IDEA_FROM_SUBSCRIPTION',
 };
 
 const listIdeasLoading = () => ({ type: states.HOME_LIST_IDEAS_LOADING });
-const listIdeasSuccessAction = ({ ideas }) => ({ type: states.HOME_LIST_IDEAS_SUCCESS, ideas });
 const listIdeasFailureAction = ({ error }) => ({ type: states.HOME_LIST_IDEAS_FAILURE, error });
+
+const upvotedIdeaFromSubscriptionAction = ({ idea }) => ({
+    type: states.UPVOTED_IDEA_FROM_SUBSCRIPTION,
+    idea,
+});
+
+const downvotedFromSubscriptionAction = ({ idea }) => ({
+    type: states.DOWNVOTED_IDEA_FROM_SUBSCRIPTION,
+    idea,
+});
+
+const listIdeasSuccessAction = ({ ideas, currentEmail }) => ({
+    type: states.HOME_LIST_IDEAS_SUCCESS,
+    ideas,
+    currentEmail,
+});
+
 const newIdeaFromSubscriptionAction = ({ idea }) => ({
     type: states.HOME_ADD_IDEA_FROM_SUBSCRIPTION,
     idea,
 });
+
 const deletedIdeaFromSubscriptionAction = ({ id }) => ({
     type: states.HOME_DELETE_IDEA_FROM_SUBSCRIPTION,
     id,
 });
 
-const listIdeas = () => async dispatch => {
+const listIdeas = ({ currentEmail }) => async dispatch => {
     dispatch(listIdeasLoading());
     try {
         const result = await API.graphql(graphqlOperation(ideaQueries.listIdeas));
-        dispatch(listIdeasSuccessAction({ ideas: result.data.allIdeas.ideas }));
+        dispatch(listIdeasSuccessAction({ ideas: result.data.allIdeas.ideas, currentEmail }));
     } catch (error) {
         dispatch(listIdeasFailureAction({ error: errorHandler(error) }));
     }
@@ -47,6 +66,7 @@ const subscribeToNewIdeas = () => async dispatch => {
         },
     });
 };
+
 const subscribeToDeleteIdea = () => async dispatch => {
     API.graphql(graphqlOperation(ideaSubscriptions.subscribeToDeleteIdea)).subscribe({
         next: eventData => {
@@ -61,9 +81,33 @@ const subscribeToDeleteIdea = () => async dispatch => {
     });
 };
 
+const subscribeToUpvotedIdea = ({ currentEmail }) => async dispatch => {
+    API.graphql(graphqlOperation(ideaSubscriptions.subscribeToUpvotedIdea)).subscribe({
+        next: eventData => {
+            const idea = eventData.value.data.upvotedIdea;
+            if (idea.updatedBy !== currentEmail) {
+                dispatch(upvotedIdeaFromSubscriptionAction({ idea }));
+            }
+        },
+    });
+};
+
+const subscribeToDownvotedIdea = ({ currentEmail }) => async dispatch => {
+    API.graphql(graphqlOperation(ideaSubscriptions.subscribeToDownvotedIdea)).subscribe({
+        next: eventData => {
+            const idea = eventData.value.data.downvotedIdea;
+            if (idea.updatedBy !== currentEmail) {
+                dispatch(downvotedFromSubscriptionAction({ idea }));
+            }
+        },
+    });
+};
+
 export default {
     listIdeas,
     subscribeToNewIdeas,
     subscribeToDeleteIdea,
+    subscribeToUpvotedIdea,
+    subscribeToDownvotedIdea,
     states,
 };
