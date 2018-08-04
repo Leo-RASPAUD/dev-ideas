@@ -1,6 +1,6 @@
 import cssConstants from 'constants/css.constants';
 
-export default () => ({
+export default theme => ({
     paper: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
@@ -14,5 +14,8 @@ export default () => ({
         padding: '0 48px 48px 48px',
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
+    },
+    textField: {
+        margin: theme.spacing.unit,
     },
 });

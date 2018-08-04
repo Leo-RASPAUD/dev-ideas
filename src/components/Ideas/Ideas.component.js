@@ -4,8 +4,17 @@ import moment from 'moment';
 import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { green, red } from '@material-ui/core/colors';
-import { Edit, Save, Cancel, Add, Clear } from '@material-ui/icons';
-import { Paper, IconButton, TextField, Grid, Tooltip } from '@material-ui/core';
+import {
+    Edit,
+    Save,
+    Cancel,
+    Add,
+    Clear,
+    AccountCircle,
+    DateRange,
+    Update,
+} from '@material-ui/icons';
+import { Paper, IconButton, TextField, Grid, Tooltip, InputAdornment } from '@material-ui/core';
 
 import styles from './Ideas.styles';
 
@@ -130,6 +139,16 @@ class Ideas extends React.PureComponent {
                                     value={idea.author}
                                     className={classes.textField}
                                     margin="normal"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment
+                                                position="start"
+                                                style={{ color: 'white' }}
+                                            >
+                                                <AccountCircle />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
 
                                 <TextField
@@ -138,6 +157,16 @@ class Ideas extends React.PureComponent {
                                     value={moment.unix(+idea.updatedOn / 1000).calendar()}
                                     className={classes.textField}
                                     margin="normal"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment
+                                                position="start"
+                                                style={{ color: 'white' }}
+                                            >
+                                                <Update />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                                 <TextField
                                     disabled
@@ -145,6 +174,16 @@ class Ideas extends React.PureComponent {
                                     value={moment.unix(+idea.createdOn / 1000).calendar()}
                                     className={classes.textField}
                                     margin="normal"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment
+                                                position="start"
+                                                style={{ color: 'white' }}
+                                            >
+                                                <DateRange />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                             </div>
                         </Paper>

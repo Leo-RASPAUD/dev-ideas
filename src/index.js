@@ -48,7 +48,10 @@ const theme = createMuiTheme({
         },
         MuiInput: {
             root: {
-                color: blue[500],
+                color: 'white !important',
+                '&:before': {
+                    borderBottom: '1px solid white !important',
+                },
             },
             disabled: {
                 color: `${blue[500]} !important`,
