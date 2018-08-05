@@ -3,6 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Home from 'components/Home/Home.container';
 import Login from 'components/Login/Login.container';
+import Settings from 'components/Settings/Settings.container';
 import routes from 'utils/routes';
 
 const unauthenticatedRoutes = <Route exact path={routes.login} component={Login} />;
@@ -23,6 +24,7 @@ class Router extends React.PureComponent {
         return (
             <Fragment>
                 <Route exact path={routes.home} component={Home} />
+                <Route exact path={routes.settings} component={Settings} />
             </Fragment>
         );
     };

@@ -159,7 +159,7 @@ class Login extends React.PureComponent {
                                                 color="primary"
                                                 className={classes.button}
                                                 type="submit"
-                                                // onClick={() => login({ email, password })}
+                                            // onClick={() => login({ email, password })}
                                             >
                                                 Login
                                             </Button>

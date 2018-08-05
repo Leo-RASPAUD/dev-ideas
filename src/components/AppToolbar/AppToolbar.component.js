@@ -14,6 +14,7 @@ class AppToolbar extends React.PureComponent {
         classes: PropTypes.object.isRequired,
         isAuthenticated: PropTypes.bool.isRequired,
         user: PropTypes.object.isRequired,
+        goToSettings: PropTypes.func.isRequired,
         signOut: PropTypes.func.isRequired,
     };
 
@@ -26,6 +27,12 @@ class AppToolbar extends React.PureComponent {
     handleClick = open => {
         this.setState(open);
     };
+
+    handleSettingsButton = () => {
+        const { goToSettings } = this.props;
+        this.setState({ open: false });
+        goToSettings();
+    }
 
     handleSignOut = () => {
         const { signOut } = this.props;
@@ -54,7 +61,18 @@ class AppToolbar extends React.PureComponent {
             >
                 <div className={classes.contentWrapper}>
                     {this.avatar()}
-                    <div className={classes.username}>{user.email}</div>
+                    <div className={classes.profile}>
+                        <div className={classes.username}>{user.email}</div>
+                        <Button
+                            onClick={this.handleSettingsButton}
+                            color="secondary"
+                            classes={{
+                                root: classes.settingsButton,
+                            }}
+                        >
+                            Settings
+                        </Button>
+                    </div>
                 </div>
                 <div className={classes.buttons}>
                     <Button

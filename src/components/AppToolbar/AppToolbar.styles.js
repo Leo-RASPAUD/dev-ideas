@@ -15,6 +15,15 @@ const styles = theme => ({
     accountCircle: {
         backgroundColor: 'transparent',
     },
+    profile: {
+        ...cssConstants.display.flex,
+        ...cssConstants.flexDirection.column,
+    },
+    settingsButton: {
+        minHeight: 36,
+        color: 'white',
+        textTransform: 'initial',
+    },
     signOutButton: {
         minHeight: 36,
         color: 'white',

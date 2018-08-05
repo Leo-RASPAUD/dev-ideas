@@ -24,7 +24,12 @@ const signOut = () => async dispatch => {
     }
 };
 
+const goToSettings = () => dispatch => {
+    dispatch(push(routes.settings));
+};
+
 export default {
     signOut,
+    goToSettings,
     states,
 };
