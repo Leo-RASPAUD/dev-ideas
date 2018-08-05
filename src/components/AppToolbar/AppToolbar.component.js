@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { AccountCircle, Whatshot } from '@material-ui/icons';
@@ -60,19 +61,21 @@ class AppToolbar extends React.PureComponent {
                 }}
             >
                 <div className={classes.contentWrapper}>
-                    {this.avatar()}
-                    <div className={classes.profile}>
-                        <div className={classes.username}>{user.email}</div>
-                        <Button
-                            onClick={this.handleSettingsButton}
-                            color="secondary"
-                            classes={{
-                                root: classes.settingsButton,
-                            }}
-                        >
-                            Settings
-                        </Button>
+                    <div className={classes.userProfile}>
+                        {this.avatar()}
+                        <div className={classes.profile}>
+                            <div className={classes.username}>{user.email}</div>
+                        </div>
                     </div>
+                    <Button
+                        onClick={this.handleSettingsButton}
+                        color="secondary"
+                        classes={{
+                            root: classes.settingsButton,
+                        }}
+                    >
+                        Settings
+                    </Button>
                 </div>
                 <div className={classes.buttons}>
                     <Button
@@ -105,10 +108,12 @@ class AppToolbar extends React.PureComponent {
         return (
             <Fragment>
                 <Toolbar>
-                    <Whatshot className={classes.logoIcon} />
-                    <Typography variant="title" color="inherit" className={classes.flex}>
-                        Dev ideas
-                    </Typography>
+                    <Link to="/home" className={classes.logoLink}>
+                        <Whatshot className={classes.logoIcon} />
+                        <Typography variant="title" color="inherit">
+                            Dev ideas
+                        </Typography>
+                    </Link>
                     {this.popOver()}
                     {isAuthenticated && (
                         <IconButton

@@ -11,4 +11,10 @@ export default () => ({
         padding: '1vh',
         margin: '2vh',
     },
+    settingTitle: {
+        color: 'white',
+        textAlign: 'left',
+        marginLeft: 5,
+        fontSize: 18,
+    },
 });

@@ -87,18 +87,6 @@ const login = ({ email, password }) => async dispatch => {
     }
 };
 
-const changePassword = ({ oldPassword, newPassword }) => async dispatch => {
-    //TODO displatch loading
-    try {
-        const user = await Auth.currentAuthenticatedUser();
-        await Auth.changePassword(user, oldPassword, newPassword);
-        //TODO dispatch succss
-        dispatch(goToHomeAction());
-    } catch (error) {
-        //TODO dispatch failure
-    }
-};
-
 const cancelRegister = () => dispatch => {
     dispatch(cancelRegisterAction());
 };
@@ -108,6 +96,5 @@ export default {
     validateCode,
     cancelRegister,
     login,
-    changePassword,
     states,
 };

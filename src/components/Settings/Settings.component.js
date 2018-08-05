@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
+    Button,
     Paper,
     Grid,
     TextField,
     Typography,
 } from '@material-ui/core';
+import { ErrorOutline } from '@material-ui/icons';
 
 import styles from './Settings.styles';
 
@@ -14,16 +16,25 @@ import styles from './Settings.styles';
 class Settings extends React.PureComponent {
     static propTypes = {
         classes: PropTypes.object.isRequired,
+        submitNewPassword: PropTypes.func.isRequired,
+        isError: PropTypes.bool.isRequired,
+        errorMessage: PropTypes.string.isRequired,
     };
 
-    handleChange = (password) => {
-        console.log(password);
-    }
+    state = {
+        oldPassword: '',
+        newPassword: '',
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
 
     render() {
-        const { classes } = this.props;
-        const oldPassword = '';
-        const newPassword = '';
+        const { classes, submitNewPassword, isError, errorMessage } = this.props;
+        const { oldPassword, newPassword } = this.state;
         return (
             <div className={classes.root}>
                 <div style={{ textAlign: 'center', margin: '2vh' }}>
@@ -31,8 +42,10 @@ class Settings extends React.PureComponent {
                         Settings
                     </Typography>
                     <Grid container className={classes.root}>
-                        <Grid item xs={10} sm={8} md={5} lg={4} xl={2}>
-                            Change your password :
+                        <Grid item xs={12}>
+                            <Typography variant="subheading" className={classes.settingTitle}>
+                                Change your password
+                            </Typography>
                             <Paper className={classes.paper}>
                                 <form className={classes.form}>
                                     <TextField
@@ -45,7 +58,6 @@ class Settings extends React.PureComponent {
                                         margin="normal"
                                         type="password"
                                     />
-
                                     <TextField
                                         id="newPassword"
                                         autoComplete="new password"
@@ -56,7 +68,32 @@ class Settings extends React.PureComponent {
                                         margin="normal"
                                         type="password"
                                     />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        onClick={() =>
+                                            submitNewPassword({
+                                                oldPassword,
+                                                newPassword,
+                                            })
+                                        }
+                                    >
+                                        Submit new password
+                                    </Button>
                                 </form>
+                                {isError && (
+                                    <div className={classes.error}>
+                                        <ErrorOutline color="error" />
+                                        <Typography
+                                            color="error"
+                                            variant="subheading"
+                                            className={classes.errorMessage}
+                                        >
+                                            {errorMessage}
+                                        </Typography>
+                                    </div>
+                                )}
                             </Paper>
                         </Grid>
                     </Grid>
