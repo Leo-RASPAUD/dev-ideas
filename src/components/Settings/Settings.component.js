@@ -37,67 +37,67 @@ class Settings extends React.PureComponent {
         const { oldPassword, newPassword } = this.state;
         return (
             <div className={classes.root}>
-                <div style={{ textAlign: 'center', margin: '2vh' }}>
+                <div className={classes.pageHeader}>
                     <Typography variant="title" style={{ color: 'white' }}>
                         Settings
                     </Typography>
-                    <Grid container className={classes.root}>
-                        <Grid item xs={12}>
-                            <Typography variant="subheading" className={classes.settingTitle}>
-                                Change your password
-                            </Typography>
-                            <Paper className={classes.paper}>
-                                <form className={classes.form}>
-                                    <TextField
-                                        id="oldPassword"
-                                        autoComplete="old password"
-                                        label="Old password"
-                                        className={classes.textField}
-                                        value={oldPassword}
-                                        onChange={this.handleChange('oldPassword')}
-                                        margin="normal"
-                                        type="password"
-                                    />
-                                    <TextField
-                                        id="newPassword"
-                                        autoComplete="new password"
-                                        label="New password"
-                                        className={classes.textField}
-                                        value={newPassword}
-                                        onChange={this.handleChange('newPassword')}
-                                        margin="normal"
-                                        type="password"
-                                    />
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.button}
-                                        onClick={() =>
-                                            submitNewPassword({
-                                                oldPassword,
-                                                newPassword,
-                                            })
-                                        }
-                                    >
-                                        Submit new password
-                                    </Button>
-                                </form>
-                                {isError && (
-                                    <div className={classes.error}>
-                                        <ErrorOutline color="error" />
-                                        <Typography
-                                            color="error"
-                                            variant="subheading"
-                                            className={classes.errorMessage}
-                                        >
-                                            {errorMessage}
-                                        </Typography>
-                                    </div>
-                                )}
-                            </Paper>
-                        </Grid>
-                    </Grid>
                 </div>
+                <Grid container className={classes.root}>
+                    <Grid item xs={12}>
+                        <Typography variant="subheading" className={classes.settingTitle}>
+                            Change your password
+                        </Typography>
+                        <Paper className={classes.paper}>
+                            <form className={classes.form}>
+                                <TextField
+                                    id="oldPassword"
+                                    autoComplete="old password"
+                                    label="Old password"
+                                    className={classes.textField}
+                                    value={oldPassword}
+                                    onChange={this.handleChange('oldPassword')}
+                                    margin="normal"
+                                    type="password"
+                                />
+                                <TextField
+                                    id="newPassword"
+                                    autoComplete="new password"
+                                    label="New password"
+                                    className={classes.textField}
+                                    value={newPassword}
+                                    onChange={this.handleChange('newPassword')}
+                                    margin="normal"
+                                    type="password"
+                                />
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.button}
+                                    onClick={() =>
+                                        submitNewPassword({
+                                            oldPassword,
+                                            newPassword,
+                                        })
+                                    }
+                                >
+                                    Submit new password
+                                </Button>
+                            </form>
+                            {isError && (
+                                <div className={classes.error}>
+                                    <ErrorOutline color="error" />
+                                    <Typography
+                                        color="error"
+                                        variant="subheading"
+                                        className={classes.errorMessage}
+                                    >
+                                        {errorMessage}
+                                    </Typography>
+                                </div>
+                            )}
+                        </Paper>
+                    </Grid>
+                </Grid>
             </div>
         );
     }

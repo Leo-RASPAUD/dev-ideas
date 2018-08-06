@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { AccountCircle, Whatshot } from '@material-ui/icons';
 import { Toolbar, Avatar, Typography, Popover, Button, IconButton } from '@material-ui/core';
 
+import routes from '../../utils/routes';
 import styles from './AppToolbar.styles';
 
 @withStyles(styles)
@@ -108,7 +109,7 @@ class AppToolbar extends React.PureComponent {
         return (
             <Fragment>
                 <Toolbar>
-                    <Link to="/home" className={classes.logoLink}>
+                    <Link to={routes.home} className={classes.logoLink}>
                         <Whatshot className={classes.logoIcon} />
                         <Typography variant="title" color="inherit">
                             Dev ideas

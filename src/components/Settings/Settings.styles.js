@@ -15,6 +15,9 @@ export default () => ({
         color: 'white',
         textAlign: 'left',
         marginLeft: 5,
-        fontSize: 18,
+    },
+    pageHeader: {
+        textAlign: 'center',
+        margin: '2vh',
     },
 });
