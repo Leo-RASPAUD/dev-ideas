@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    goToSettings: () => dispatch(actions.goToSettings()),
     signOut: () => dispatch(actions.signOut()),
 });
 

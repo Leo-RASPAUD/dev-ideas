@@ -40,7 +40,7 @@ class Home extends React.PureComponent {
         const { classes, user, ideas, isLoadingIdeas } = this.props;
         return (
             <div className={classes.root}>
-                <div style={{ textAlign: 'center', margin: '2vh' }}>
+                <div className={classes.pageHeader}>
                     <Typography variant="title" style={{ color: 'white' }}>
                         Welcome
                     </Typography>
