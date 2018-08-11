@@ -41,12 +41,8 @@ class Home extends React.PureComponent {
         return (
             <div className={classes.root}>
                 <div className={classes.pageHeader}>
-                    <Typography variant="title" style={{ color: 'white' }}>
-                        Welcome
-                    </Typography>
-                    <Typography variant="subheading" style={{ color: 'white' }}>
-                        {user.email}
-                    </Typography>
+                    <Typography variant="title">Welcome</Typography>
+                    <Typography variant="subheading">{user.email}</Typography>
                 </div>
                 {isLoadingIdeas && <CircularProgress color="secondary" />}
                 {!isLoadingIdeas && <Ideas ideas={ideas} />}

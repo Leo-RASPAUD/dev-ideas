@@ -5,7 +5,7 @@ const buttonsPadding = 10;
 
 const styles = theme => ({
     logoIcon: {
-        marginRight: 20,
+        marginRight: 3 * theme.spacing.unit,
     },
     logoLink: {
         flexGrow: 1,
@@ -22,17 +22,16 @@ const styles = theme => ({
         ...cssConstants.flexDirection.column,
     },
     settingsButton: {
-        minHeight: 36,
+        minHeight: 4 * theme.spacing.unit,
         color: 'white',
         textTransform: 'initial',
     },
     signOutButton: {
-        minHeight: 36,
+        minHeight: 4 * theme.spacing.unit,
         color: 'white',
         textTransform: 'initial',
     },
     contentWrapper: {
-        backgroundColor: '#2a2b31',
         borderBottom: `1px solid ${theme.palette.secondary.main}`,
         padding: `${contentPadding}px`,
         ...cssConstants.display.flex,
@@ -52,7 +51,6 @@ const styles = theme => ({
         ...cssConstants.display.flex,
         ...cssConstants.justifyContent.flexEnd,
         ...cssConstants.alignItems.center,
-        ...cssConstants.buttonBackgroundColor,
     },
 });
 

@@ -1,11 +1,3 @@
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
-    transition-delay: background-color 5000s, color 5000s;
-}
-
 html {
     height: 100%;
 }
@@ -13,7 +5,6 @@ html {
 body {
     margin: 0;
     height: 100%;
-    color: white;
 }
 body::-webkit-scrollbar {
     display: none;

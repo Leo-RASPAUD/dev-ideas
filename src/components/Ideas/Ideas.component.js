@@ -21,6 +21,7 @@ import {
 } from '@material-ui/icons';
 import {
     Paper,
+    Button,
     IconButton,
     TextField,
     Grid,
@@ -261,11 +262,8 @@ class Ideas extends React.PureComponent {
                                     margin="normal"
                                     InputProps={{
                                         startAdornment: (
-                                            <InputAdornment
-                                                position="start"
-                                                style={{ color: 'white' }}
-                                            >
-                                                <AccountCircle />
+                                            <InputAdornment position="start">
+                                                <AccountCircle color="primary" />
                                             </InputAdornment>
                                         ),
                                     }}
@@ -279,11 +277,8 @@ class Ideas extends React.PureComponent {
                                     margin="normal"
                                     InputProps={{
                                         startAdornment: (
-                                            <InputAdornment
-                                                position="start"
-                                                style={{ color: 'white' }}
-                                            >
-                                                <Update />
+                                            <InputAdornment position="start">
+                                                <Update color="primary" />
                                             </InputAdornment>
                                         ),
                                     }}
@@ -296,11 +291,8 @@ class Ideas extends React.PureComponent {
                                     margin="normal"
                                     InputProps={{
                                         startAdornment: (
-                                            <InputAdornment
-                                                position="start"
-                                                style={{ color: 'white' }}
-                                            >
-                                                <DateRange />
+                                            <InputAdornment position="start">
+                                                <DateRange color="primary" />
                                             </InputAdornment>
                                         ),
                                     }}
@@ -321,15 +313,15 @@ class Ideas extends React.PureComponent {
                     className={classnames('animated bounceInLeft')}
                 >
                     <Tooltip title="Add a new idea">
-                        <IconButton
-                            variant="contained"
-                            style={{ backgroundColor: green[500] }}
+                        <Button
+                            variant="fab"
+                            color="primary"
                             onClick={() =>
                                 addIdea({ content: 'My awesome new idea!', email: user.email })
                             }
                         >
                             <Add />
-                        </IconButton>
+                        </Button>
                     </Tooltip>
                 </Grid>
             </Grid>

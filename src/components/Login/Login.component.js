@@ -76,7 +76,7 @@ class Login extends React.PureComponent {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <AccountCircle />
+                                            <AccountCircle color="primary" />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -93,7 +93,7 @@ class Login extends React.PureComponent {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <Lock />
+                                            <Lock color="primary" />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -110,7 +110,7 @@ class Login extends React.PureComponent {
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <Done />
+                                                <Done color="primary" />
                                             </InputAdornment>
                                         ),
                                     }}

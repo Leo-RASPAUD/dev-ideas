@@ -17,7 +17,6 @@ export default () => ({
         padding: '2vh',
     },
     settingTitle: {
-        color: 'white',
         textAlign: 'left',
         marginLeft: 5,
     },

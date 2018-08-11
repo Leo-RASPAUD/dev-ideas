@@ -1,4 +1,5 @@
 import cssConstants from 'constants/css.constants';
+import red from '@material-ui/core/colors/red';
 
 export default theme => ({
     button: {
@@ -22,7 +23,7 @@ export default theme => ({
         margin: theme.spacing.unit,
     },
     error: {
-        border: '1px solid #F44336',
+        border: `1px solid ${red[500]}`,
         padding: 2,
         borderRadius: 8,
         marginTop: 10,

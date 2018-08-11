@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import mainReducer from 'reducers/main.reducer';
-import blue from '@material-ui/core/colors/blue';
+import indigo from '@material-ui/core/colors/indigo';
 import pink from '@material-ui/core/colors/pink';
 import App from 'components/App/App.container';
 import Amplify from 'aws-amplify';
@@ -37,33 +37,23 @@ if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 const store = createStore(mainReducer, compose(...composeFunctions));
 const theme = createMuiTheme({
     palette: {
-        primary: blue,
+        primary: indigo,
         secondary: pink,
     },
     overrides: {
-        MuiFormLabel: {
-            root: {
-                color: blue[500],
-            },
-        },
         MuiInput: {
             root: {
-                color: 'white !important',
+                color: indigo[500],
                 '&:before': {
-                    borderBottom: '1px solid white !important',
+                    borderBottom: `1px solid ${indigo[500]} !important`,
                 },
             },
             disabled: {
-                color: `${blue[500]} !important`,
+                color: `${indigo[500]} !important`,
                 cursor: 'text',
                 '&:before': {
-                    borderBottom: `1px solid ${blue[500]} !important`,
+                    borderBottom: `1px solid ${indigo[50]} !important`,
                 },
-            },
-        },
-        MuiPaper: {
-            root: {
-                backgroundColor: 'rgba(0, 0, 0, 0.18)',
             },
         },
     },

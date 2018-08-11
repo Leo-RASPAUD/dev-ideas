@@ -32,9 +32,7 @@ class Settings extends React.PureComponent {
         return (
             <div className={classes.root}>
                 <div className={classes.pageHeader}>
-                    <Typography variant="title" style={{ color: 'white' }}>
-                        Settings
-                    </Typography>
+                    <Typography variant="title">Settings</Typography>
                 </div>
                 <Grid container className={classes.root}>
                     <Grid item xs={10} sm={8} md={5} lg={4} xl={2}>

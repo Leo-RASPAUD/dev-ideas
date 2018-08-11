@@ -2,17 +2,17 @@ import cssConstants from 'constants/css.constants';
 
 const styles = theme => ({
     logoIcon: {
-        marginRight: 20,
+        marginRight: 3 * theme.spacing.unit,
     },
     root: {
-        background: 'radial-gradient(circle, #222325, #202125)',
+        background: '#f6f6f6',
         height: 'auto',
         minHeight: '100%',
     },
     loadingBar: {
         height: 2,
         position: 'absolute',
-        backgroundColor: 'white',
+        backgroundColor: theme.palette.secondary.main,
     },
     progress: {
         margin: theme.spacing.unit * 2,
