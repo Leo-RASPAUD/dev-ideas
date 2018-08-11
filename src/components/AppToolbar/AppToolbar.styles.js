@@ -7,12 +7,9 @@ const styles = theme => ({
     logoIcon: {
         marginRight: 3 * theme.spacing.unit,
     },
-    logoLink: {
+    title: {
         flexGrow: 1,
-        textDecoration: 'none',
-        color: 'white',
-        ...cssConstants.display.flex,
-        ...cssConstants.flexDirection.row,
+        ...cssConstants.cursor.default,
     },
     accountCircle: {
         backgroundColor: 'transparent',
@@ -28,7 +25,6 @@ const styles = theme => ({
     },
     signOutButton: {
         minHeight: 4 * theme.spacing.unit,
-        color: 'white',
         textTransform: 'initial',
     },
     contentWrapper: {
@@ -51,6 +47,16 @@ const styles = theme => ({
         ...cssConstants.display.flex,
         ...cssConstants.justifyContent.flexEnd,
         ...cssConstants.alignItems.center,
+    },
+    textToolbar: {
+        marginRight: 2 * theme.spacing.unit,
+        transition: `all ${theme.transitions.duration.complex}ms ${
+            theme.transitions.easing.easeInOut
+        }`,
+        color: 'white',
+        '&:hover': {
+            color: theme.palette.secondary.main,
+        },
     },
 });
 

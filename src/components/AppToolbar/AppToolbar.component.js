@@ -100,17 +100,20 @@ class AppToolbar extends React.PureComponent {
         return (
             <Fragment>
                 <Toolbar>
-                    <Link to={routes.home} className={classes.logoLink}>
-                        <Whatshot className={classes.logoIcon} />
-                        <Typography variant="title" color="inherit">
-                            Dev ideas
-                        </Typography>
-                    </Link>
                     {this.popOver()}
+                    <Whatshot className={classes.logoIcon} />
+                    <Typography variant="title" color="inherit" className={classes.title}>
+                        Dev ideas
+                    </Typography>
                     {isAuthenticated && (
                         <Fragment>
+                            <Link to={routes.home} style={{ textDecoration: 'none' }}>
+                                <Typography variant="subheading" className={classes.textToolbar}>
+                                    Home
+                                </Typography>
+                            </Link>
                             <Link to={routes.settings} style={{ textDecoration: 'none' }}>
-                                <Typography variant="subheading" style={{ color: 'white' }}>
+                                <Typography variant="subheading" className={classes.textToolbar}>
                                     Settings
                                 </Typography>
                             </Link>
