@@ -4,12 +4,14 @@ export default () => ({
     root: {
         padding: '2vh 5vw',
         height: '100%',
+        ...cssConstants.display.flex,
+        ...cssConstants.flexDirection.column,
+        ...cssConstants.alignItems.center,
     },
     form: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
-        padding: '1vh',
-        margin: '2vh',
+        padding: '2vh',
     },
     settingTitle: {
         color: 'white',

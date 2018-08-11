@@ -142,6 +142,19 @@ const appReducer = (state = initialState, action) => {
                     return ideaCopy;
                 }),
             };
+        case IdeasActions.states.CHANGE_VISIBILITY_SUCCESS:
+            return {
+                ...state,
+                ideas: state.ideas.map(idea => {
+                    if (idea.id === action.id) {
+                        return {
+                            ...idea,
+                            isPublic: !idea.isPublic,
+                        };
+                    }
+                    return idea;
+                }),
+            };
         case HomeActions.states.HOME_ADD_IDEA_FROM_SUBSCRIPTION:
             return {
                 ...state,

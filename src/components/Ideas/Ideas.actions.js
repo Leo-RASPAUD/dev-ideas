@@ -20,6 +20,9 @@ const states = {
     IDEA_DELETE_IDEA_LOADING: 'IDEA_DELETE_IDEA_LOADING',
     IDEA_DELETE_IDEA_SUCCESS: 'IDEA_DELETE_IDEA_SUCCESS',
     IDEA_DELETE_IDEA_FAILURE: 'IDEA_DELETE_IDEA_FAILURE',
+    CHANGE_VISIBILITY_LOADING: 'CHANGE_VISIBILITY_LOADING',
+    CHANGE_VISIBILITY_SUCCESS: 'CHANGE_VISIBILITY_SUCCESS',
+    CHANGE_VISIBILITY_FAILURE: 'CHANGE_VISIBILITY_FAILURE',
     IDEA_SWITCH_EDIT_MODE: 'IDEA_SWITCH_EDIT_MODE',
     IDEA_EDIT_CONTENT: 'IDEA_EDIT_CONTENT',
     CANCEL_EDIT: 'CANCEL_EDIT',
@@ -44,6 +47,13 @@ const upvoteIdeaLoading = () => ({ type: states.IDEA_UPVOTE_IDEA_LOADING });
 const upvoteIdeaSuccessAction = ({ idea }) => ({ type: states.IDEA_UPVOTE_IDEA_SUCCESS, idea });
 const upvoteIdeaFailureAction = ({ error }) => ({ type: states.IDEA_UPVOTE_IDEA_FAILURE, error });
 
+const changeVisibilityLoading = () => ({ type: states.CHANGE_VISIBILITY_LOADING });
+const changeVisibilitySuccessAction = ({ id }) => ({ type: states.CHANGE_VISIBILITY_SUCCESS, id });
+const changeVisibilityFailureAction = ({ error }) => ({
+    type: states.CHANGE_VISIBILITY_FAILURE,
+    error,
+});
+
 const deleteIdeaLoading = () => ({ type: states.IDEA_DELETE_IDEA_LOADING });
 const deleteIdeaSuccessAction = ({ id }) => ({ type: states.IDEA_DELETE_IDEA_SUCCESS, id });
 const deleteIdeaFailureAction = ({ error }) => ({ type: states.IDEA_DELETE_IDEA_FAILURE, error });
@@ -57,20 +67,6 @@ const addIdea = ({ content, email }) => async dispatch => {
     try {
         const result = await API.graphql(graphqlOperation(ideaQueries.addIdea, { content, email }));
         dispatch(addIdeaSuccessAction({ idea: result.data.addIdea }));
-        await slack.post({
-            message: 'New idea!',
-            fields: [
-                {
-                    title: 'User',
-                    value: email,
-                    short: true,
-                },
-                {
-                    title: 'Content',
-                    value: content,
-                },
-            ],
-        });
         setTimeout(() => {
             document.getElementById('addButton').scrollIntoView({
                 behavior: 'smooth',
@@ -150,6 +146,17 @@ const cancelEdit = ({ id }) => dispatch => {
     dispatch(cancelEditAction({ id }));
 };
 
+const handleChangeVisibility = ({ isPublic, id, email }) => async dispatch => {
+    dispatch(changeVisibilityLoading());
+    try {
+        await API.graphql(graphqlOperation(ideaQueries.changeVisibility, { id, isPublic, email }));
+        dispatch(changeVisibilitySuccessAction({ id }));
+        dispatch(snackbarUtils.displaySnackbarSuccess({ message: 'Idea updated' }));
+    } catch (error) {
+        dispatch(changeVisibilityFailureAction({ error: errorHandler(error) }));
+    }
+};
+
 export default {
     addIdea,
     cancelEdit,
@@ -160,4 +167,5 @@ export default {
     states,
     upvoteIdea,
     downvoteIdea,
+    handleChangeVisibility,
 };

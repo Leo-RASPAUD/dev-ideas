@@ -34,7 +34,7 @@ class AppToolbar extends React.PureComponent {
         const { goToSettings } = this.props;
         this.setState({ open: false });
         goToSettings();
-    }
+    };
 
     handleSignOut = () => {
         const { signOut } = this.props;
@@ -68,15 +68,6 @@ class AppToolbar extends React.PureComponent {
                             <div className={classes.username}>{user.email}</div>
                         </div>
                     </div>
-                    <Button
-                        onClick={this.handleSettingsButton}
-                        color="secondary"
-                        classes={{
-                            root: classes.settingsButton,
-                        }}
-                    >
-                        Settings
-                    </Button>
                 </div>
                 <div className={classes.buttons}>
                     <Button
@@ -117,16 +108,23 @@ class AppToolbar extends React.PureComponent {
                     </Link>
                     {this.popOver()}
                     {isAuthenticated && (
-                        <IconButton
-                            color="inherit"
-                            aria-label="Menu"
-                            onClick={() => this.handleClick({ open: true })}
-                            buttonRef={node => {
-                                this.anchorEl = node;
-                            }}
-                        >
-                            {this.avatar()}
-                        </IconButton>
+                        <Fragment>
+                            <Link to={routes.settings} style={{ textDecoration: 'none' }}>
+                                <Typography variant="subheading" style={{ color: 'white' }}>
+                                    Settings
+                                </Typography>
+                            </Link>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Menu"
+                                onClick={() => this.handleClick({ open: true })}
+                                buttonRef={node => {
+                                    this.anchorEl = node;
+                                }}
+                            >
+                                {this.avatar()}
+                            </IconButton>
+                        </Fragment>
                     )}
                 </Toolbar>
             </Fragment>

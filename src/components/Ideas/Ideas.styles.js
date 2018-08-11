@@ -39,4 +39,7 @@ export default theme => ({
         height: 40,
         width: 40,
     },
+    visibilityButtons: {
+        color: theme.palette.primary.main,
+    },
 });

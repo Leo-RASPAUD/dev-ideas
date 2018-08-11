@@ -16,6 +16,8 @@ const mapDispatchToProps = dispatch => ({
     cancelEdit: ({ id }) => dispatch(actions.cancelEdit({ id })),
     updateContent: ({ id, content }) => dispatch(actions.updateContent({ id, content })),
     updateIdea: ({ id, content, email }) => dispatch(actions.updateIdea({ id, content, email })),
+    handleChangeVisibility: ({ isPublic, id, email }) =>
+        dispatch(actions.handleChangeVisibility({ isPublic, id, email })),
 });
 
 export default withRouter(

@@ -46,7 +46,9 @@ const deletedIdeaFromSubscriptionAction = ({ id }) => ({
 const listIdeas = ({ currentEmail }) => async dispatch => {
     dispatch(listIdeasLoading());
     try {
-        const result = await API.graphql(graphqlOperation(ideaQueries.listIdeas));
+        const result = await API.graphql(
+            graphqlOperation(ideaQueries.listIdeas, { author: currentEmail }),
+        );
         dispatch(listIdeasSuccessAction({ ideas: result.data.allIdeas.ideas, currentEmail }));
     } catch (error) {
         dispatch(listIdeasFailureAction({ error: errorHandler(error) }));

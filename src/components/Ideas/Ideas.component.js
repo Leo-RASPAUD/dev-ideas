@@ -16,6 +16,8 @@ import {
     Update,
     ThumbUp,
     ThumbUpOutlined,
+    Public,
+    LockOutlined,
 } from '@material-ui/icons';
 import {
     Paper,
@@ -36,6 +38,7 @@ class Ideas extends React.PureComponent {
         classes: PropTypes.object.isRequired,
         user: PropTypes.object.isRequired,
         addIdea: PropTypes.func.isRequired,
+        handleChangeVisibility: PropTypes.func.isRequired,
         deleteIdea: PropTypes.func.isRequired,
         switchEditMode: PropTypes.func.isRequired,
         updateContent: PropTypes.func.isRequired,
@@ -64,7 +67,16 @@ class Ideas extends React.PureComponent {
     };
 
     render() {
-        const { classes, ideas, addIdea, deleteIdea, updateContent, cancelEdit, user } = this.props;
+        const {
+            classes,
+            ideas,
+            addIdea,
+            deleteIdea,
+            updateContent,
+            cancelEdit,
+            user,
+            handleChangeVisibility,
+        } = this.props;
 
         return (
             <Grid container spacing={40} alignItems="center" justify="center">
@@ -83,6 +95,36 @@ class Ideas extends React.PureComponent {
                             <div>
                                 <div className={classes.buttons}>
                                     <div className={classes.upvote}>
+                                        {idea.author === user.email && (
+                                            <Tooltip
+                                                title={
+                                                    idea.isPublic
+                                                        ? 'Idea visible by everyone'
+                                                        : 'Idea visible only by you'
+                                                }
+                                            >
+                                                <IconButton
+                                                    onClick={() =>
+                                                        handleChangeVisibility({
+                                                            isPublic: !idea.isPublic,
+                                                            id: idea.id,
+                                                            email: user.email,
+                                                        })
+                                                    }
+                                                >
+                                                    {idea.isPublic && (
+                                                        <Public
+                                                            className={classes.visibilityButtons}
+                                                        />
+                                                    )}
+                                                    {!idea.isPublic && (
+                                                        <LockOutlined
+                                                            className={classes.visibilityButtons}
+                                                        />
+                                                    )}
+                                                </IconButton>
+                                            </Tooltip>
+                                        )}
                                         <IconButton
                                             onClick={() =>
                                                 this.handleVote({
@@ -115,76 +157,84 @@ class Ideas extends React.PureComponent {
                                             </Typography>
                                         )}
                                     </div>
-                                    <div className={classes.actionButtons}>
-                                        {idea.editInProgress && (
-                                            <Fragment>
-                                                <Tooltip title="Save">
-                                                    <IconButton
-                                                        classes={{
-                                                            root: classes.smallButton,
-                                                        }}
-                                                        size="small"
-                                                        variant="contained"
-                                                        style={{ color: green[500] }}
-                                                        onClick={() =>
-                                                            this.handleClick({
-                                                                editInProgress: idea.editInProgress,
-                                                                id: idea.id,
-                                                                content: idea.content,
-                                                            })
-                                                        }
-                                                    >
-                                                        <Save />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Cancel">
-                                                    <IconButton
-                                                        classes={{
-                                                            root: classes.smallButton,
-                                                        }}
-                                                        variant="contained"
-                                                        style={{ color: red[500] }}
-                                                        onClick={() => cancelEdit({ id: idea.id })}
-                                                    >
-                                                        <SettingsBackupRestore />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </Fragment>
-                                        )}
-                                        {!idea.editInProgress && (
-                                            <Fragment>
-                                                <Tooltip title="Edit">
-                                                    <IconButton
-                                                        classes={{
-                                                            root: classes.smallButton,
-                                                        }}
-                                                        variant="contained"
-                                                        style={{ color: green[500] }}
-                                                        onClick={() =>
-                                                            this.handleClick({
-                                                                editInProgress: idea.editInProgress,
-                                                                id: idea.id,
-                                                            })
-                                                        }
-                                                    >
-                                                        <Edit />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Delete">
-                                                    <IconButton
-                                                        classes={{
-                                                            root: classes.smallButton,
-                                                        }}
-                                                        variant="contained"
-                                                        style={{ color: red[500] }}
-                                                        onClick={() => deleteIdea({ id: idea.id })}
-                                                    >
-                                                        <Clear />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </Fragment>
-                                        )}
-                                    </div>
+                                    {idea.author === user.email && (
+                                        <div className={classes.actionButtons}>
+                                            {idea.editInProgress && (
+                                                <Fragment>
+                                                    <Tooltip title="Save">
+                                                        <IconButton
+                                                            classes={{
+                                                                root: classes.smallButton,
+                                                            }}
+                                                            size="small"
+                                                            variant="contained"
+                                                            style={{ color: green[500] }}
+                                                            onClick={() =>
+                                                                this.handleClick({
+                                                                    editInProgress:
+                                                                        idea.editInProgress,
+                                                                    id: idea.id,
+                                                                    content: idea.content,
+                                                                })
+                                                            }
+                                                        >
+                                                            <Save />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Cancel">
+                                                        <IconButton
+                                                            classes={{
+                                                                root: classes.smallButton,
+                                                            }}
+                                                            variant="contained"
+                                                            style={{ color: red[500] }}
+                                                            onClick={() =>
+                                                                cancelEdit({ id: idea.id })
+                                                            }
+                                                        >
+                                                            <SettingsBackupRestore />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Fragment>
+                                            )}
+                                            {!idea.editInProgress && (
+                                                <Fragment>
+                                                    <Tooltip title="Edit">
+                                                        <IconButton
+                                                            classes={{
+                                                                root: classes.smallButton,
+                                                            }}
+                                                            variant="contained"
+                                                            style={{ color: green[500] }}
+                                                            onClick={() =>
+                                                                this.handleClick({
+                                                                    editInProgress:
+                                                                        idea.editInProgress,
+                                                                    id: idea.id,
+                                                                })
+                                                            }
+                                                        >
+                                                            <Edit />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Delete">
+                                                        <IconButton
+                                                            classes={{
+                                                                root: classes.smallButton,
+                                                            }}
+                                                            variant="contained"
+                                                            style={{ color: red[500] }}
+                                                            onClick={() =>
+                                                                deleteIdea({ id: idea.id })
+                                                            }
+                                                        >
+                                                            <Clear />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Fragment>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
