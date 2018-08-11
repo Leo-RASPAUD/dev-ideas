@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {
-    Button,
-    Paper,
-    Grid,
-    TextField,
-    Typography,
-} from '@material-ui/core';
+import { Button, Paper, Grid, TextField, Typography } from '@material-ui/core';
 import { ErrorOutline } from '@material-ui/icons';
 
 import styles from './Settings.styles';
@@ -44,11 +38,11 @@ class Settings extends React.PureComponent {
                 </div>
                 <Grid container className={classes.root}>
                     <Grid item xs={10} sm={8} md={5} lg={4} xl={2}>
-                        <Typography variant="subheading" className={classes.settingTitle}>
-                            Change your password
-                        </Typography>
                         <Paper className={classes.paper}>
                             <form className={classes.form}>
+                                <Typography variant="subheading" className={classes.settingTitle}>
+                                    Change your password
+                                </Typography>
                                 <TextField
                                     id="oldPassword"
                                     autoComplete="old password"

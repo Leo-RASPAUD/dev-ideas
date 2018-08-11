@@ -8,6 +8,9 @@ export default () => ({
         ...cssConstants.flexDirection.column,
         ...cssConstants.alignItems.center,
     },
+    button: {
+        marginTop: 32,
+    },
     form: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
