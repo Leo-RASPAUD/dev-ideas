@@ -32,6 +32,10 @@ const goToHomeAction = () => push(routes.home);
 const cancelRegisterAction = () => ({ type: states.CANCEL_REGISTER });
 
 const registerUser = ({ email, password }) => async dispatch => {
+    if (!email || !password) {
+        dispatch(registerFailureAction({ error: 'Email / password are mandatory' }));
+        return;
+    }
     dispatch(registerLoading());
     try {
         await Auth.signUp({
